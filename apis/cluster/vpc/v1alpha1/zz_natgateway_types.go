@@ -14,16 +14,30 @@ import (
 )
 
 type EgressesInitParameters struct {
+
+	// Set of public gateway IPs
+	PublicGateways []PublicGatewaysInitParameters `json:"publicGateways,omitempty" tf:"public_gateways,omitempty"`
 }
 
 type EgressesObservation struct {
+
+	// Set of public gateway IPs
 	PublicGateways []PublicGatewaysObservation `json:"publicGateways,omitempty" tf:"public_gateways,omitempty"`
 }
 
 type EgressesParameters struct {
+
+	// Set of public gateway IPs
+	// +kubebuilder:validation:Optional
+	PublicGateways []PublicGatewaysParameters `json:"publicGateways,omitempty" tf:"public_gateways,omitempty"`
 }
 
 type NATGatewayInitParameters struct {
+
+	// Embeds the list of public egresses assigned to the VPC NAT Gateway: resolves as list of
+	// public_gateways embedding the reserved ipv4 addresses.
+	// Optional egress configuration. Set public_gateways.ipv4 to assign a BYOIP / reserved IP on create. When omitted, a system-allocated reserved IP is provisioned.
+	Egresses []EgressesInitParameters `json:"egresses,omitempty" tf:"egresses,omitempty"`
 
 	// The egress timeout value for ICMP connections of the VPC NAT Gateway.
 	// ICMP connection timeout (in seconds)
@@ -80,7 +94,7 @@ type NATGatewayObservation struct {
 
 	// Embeds the list of public egresses assigned to the VPC NAT Gateway: resolves as list of
 	// public_gateways embedding the reserved ipv4 addresses.
-	// List of egresses
+	// Optional egress configuration. Set public_gateways.ipv4 to assign a BYOIP / reserved IP on create. When omitted, a system-allocated reserved IP is provisioned.
 	Egresses []EgressesObservation `json:"egresses,omitempty" tf:"egresses,omitempty"`
 
 	// The ID of the VPC NAT Gateway.
@@ -132,6 +146,12 @@ type NATGatewayObservation struct {
 }
 
 type NATGatewayParameters struct {
+
+	// Embeds the list of public egresses assigned to the VPC NAT Gateway: resolves as list of
+	// public_gateways embedding the reserved ipv4 addresses.
+	// Optional egress configuration. Set public_gateways.ipv4 to assign a BYOIP / reserved IP on create. When omitted, a system-allocated reserved IP is provisioned.
+	// +kubebuilder:validation:Optional
+	Egresses []EgressesParameters `json:"egresses,omitempty" tf:"egresses,omitempty"`
 
 	// The egress timeout value for ICMP connections of the VPC NAT Gateway.
 	// ICMP connection timeout (in seconds)
@@ -190,13 +210,22 @@ type NATGatewayParameters struct {
 }
 
 type PublicGatewaysInitParameters struct {
+
+	// IPv4 address. On create, set this to an unassigned BYOIP on the account in the same region. When omitted, a system-allocated reserved IP is provisioned.
+	IPv4 *string `json:"ipv4,omitempty" tf:"ipv4,omitempty"`
 }
 
 type PublicGatewaysObservation struct {
+
+	// IPv4 address. On create, set this to an unassigned BYOIP on the account in the same region. When omitted, a system-allocated reserved IP is provisioned.
 	IPv4 *string `json:"ipv4,omitempty" tf:"ipv4,omitempty"`
 }
 
 type PublicGatewaysParameters struct {
+
+	// IPv4 address. On create, set this to an unassigned BYOIP on the account in the same region. When omitted, a system-allocated reserved IP is provisioned.
+	// +kubebuilder:validation:Optional
+	IPv4 *string `json:"ipv4,omitempty" tf:"ipv4,omitempty"`
 }
 
 type VpcsInitParameters struct {
@@ -204,6 +233,10 @@ type VpcsInitParameters struct {
 	// Boolean flag indicating if this should be the default gateway in this VPC
 	// Indicates if this is the default VPC NAT Gateway in the VPC
 	DefaultGateway *bool `json:"defaultGateway,omitempty" tf:"default_gateway,omitempty"`
+
+	// The ID of the ingress subnet in the VPC
+	// ID of the ingress subnet in the VPC
+	SubnetUUID *string `json:"subnetUuid,omitempty" tf:"subnet_uuid,omitempty"`
 
 	// The ID of the ingress VPC
 	// ID of the ingress VPC
@@ -220,6 +253,10 @@ type VpcsObservation struct {
 	// Gateway IP of the VPC NAT Gateway
 	GatewayIP *string `json:"gatewayIp,omitempty" tf:"gateway_ip,omitempty"`
 
+	// The ID of the ingress subnet in the VPC
+	// ID of the ingress subnet in the VPC
+	SubnetUUID *string `json:"subnetUuid,omitempty" tf:"subnet_uuid,omitempty"`
+
 	// The ID of the ingress VPC
 	// ID of the ingress VPC
 	VPCUUID *string `json:"vpcUuid,omitempty" tf:"vpc_uuid,omitempty"`
@@ -231,6 +268,11 @@ type VpcsParameters struct {
 	// Indicates if this is the default VPC NAT Gateway in the VPC
 	// +kubebuilder:validation:Optional
 	DefaultGateway *bool `json:"defaultGateway,omitempty" tf:"default_gateway,omitempty"`
+
+	// The ID of the ingress subnet in the VPC
+	// ID of the ingress subnet in the VPC
+	// +kubebuilder:validation:Optional
+	SubnetUUID *string `json:"subnetUuid,omitempty" tf:"subnet_uuid,omitempty"`
 
 	// The ID of the ingress VPC
 	// ID of the ingress VPC

@@ -74,7 +74,8 @@ spec:
                 properties:
                   amdGpuDeviceMetricsExporterPlugin:
                     description: Block containing options for the AMD GPU device metrics
-                      exporter component.
+                      exporter component. If not specified, the component will not
+                      be installed in the cluster.
                     items:
                       properties:
                         enabled:
@@ -86,7 +87,19 @@ spec:
                   amdGpuDevicePlugin:
                     description: Block containing options for the AMD GPU device plugin
                       component. If not specified, the component will be enabled by
-                      default for clusters with AMD GPU nodes.
+                      default for clusters with AMD GPU nodes. Mutually exclusive
+                      with amd_gpu_dra_driver.
+                    items:
+                      properties:
+                        enabled:
+                          description: Boolean flag whether the firewall should be
+                            enabled or not.
+                          type: boolean
+                      type: object
+                    type: array
+                  amdGpuDraDriver:
+                    description: Block containing options for the AMD GPU DRA driver
+                      component. Mutually exclusive with amd_gpu_device_plugin.
                     items:
                       properties:
                         enabled:
@@ -102,9 +115,20 @@ spec:
                     type: boolean
                   clusterAutoscalerConfiguration:
                     description: Block containing options for cluster auto-scaling.
+                      For more information.
                     items:
                       properties:
                         expanders:
+                          description: A list of cluster autoscaler expander strategies
+                            to apply in order when selecting which node pool to scale
+                            up. Valid values are random, priority, and least-waste.
+                            The autoscaler uses each expander from the list to narrow
+                            the selection until a single node pool remains. If multiple
+                            node pools remain after all expanders are applied, one
+                            is chosen at random. When using the priority expander,
+                            configure priorities in the cluster-autoscaler-priority-expander
+                            ConfigMap in the kube-system namespace (see Configuring
+                            Priority Expander).
                           items:
                             type: string
                           type: array
@@ -139,16 +163,41 @@ spec:
                           type: boolean
                       type: object
                     type: array
+                  corednsAutoscaler:
+                    description: 'Block containing options for the CoreDNS Autoscaler
+                      component, which scales CoreDNS replicas in proportion to the
+                      cluster''s size. Default: true (for 1.36.0 and later)'
+                    items:
+                      properties:
+                        enabled:
+                          description: Boolean flag whether the firewall should be
+                            enabled or not.
+                          type: boolean
+                      type: object
+                    type: array
                   destroyAllAssociatedResources:
                     description: Use with caution. When set to true, all associated
                       DigitalOcean resources created via the Kubernetes API (load
                       balancers, volumes, and volume snapshots) will be destroyed
                       along with the cluster when it is destroyed.
                     type: boolean
+                  gpuOperatorReady:
+                    description: 'Enable/disable launching GPU nodes in the cluster
+                      with images without GPU drivers, allowing GPU operators to manage
+                      drivers. Mutually exclusive with other GPU-related cluster options,
+                      such as nvidia_gpu_dra_driver and amd_gpu_dra_driver. Default:
+                      false'
+                    type: boolean
                   ha:
                     description: 'Enable/disable the high availability control plane
                       for a cluster. Once enabled for a cluster, high availability
-                      cannot be disabled. Default: false'
+                      cannot be disabled. Default: true (for 1.36.0 and later)'
+                    type: boolean
+                  isolatedWorkers:
+                    description: 'Enable/disable isolated worker nodes for the cluster.
+                      When enabled, each worker node runs on dedicated hardware. This
+                      can only be set at creation time. The cluster''s VPC must have
+                      a NAT gateway attached. Default: false'
                     type: boolean
                   kubeconfigExpireSeconds:
                     description: The duration in seconds that the returned Kubernetes
@@ -175,6 +224,18 @@ spec:
                   name:
                     description: A name for the Kubernetes cluster.
                     type: string
+                  nfsCsiPlugin:
+                    description: Block containing options for the NFS CSI driver plugin
+                      component. If not specified, the NFS CSI plugin will not be
+                      installed in the cluster.
+                    items:
+                      properties:
+                        enabled:
+                          description: Boolean flag whether the firewall should be
+                            enabled or not.
+                          type: boolean
+                      type: object
+                    type: array
                   nodePool:
                     description: 'A block representing the cluster''s default node
                       pool. Additional node pools may be added to the cluster using
@@ -186,6 +247,12 @@ spec:
                           description: Enable auto-scaling of the number of nodes
                             in the node pool within the given min/max range.
                           type: boolean
+                        gpuPartitionMode:
+                          description: The AMD GPU partition mode to use for nodes
+                            in this pool. Valid values are AMD_PARTITION_MODE_SPX_NPS1
+                            and AMD_PARTITION_MODE_DPX_NPS2. This can only be set
+                            when the pool is created.
+                          type: string
                         labels:
                           additionalProperties:
                             type: string
@@ -252,7 +319,31 @@ spec:
                   nvidiaGpuDevicePlugin:
                     description: Block containing options for the NVIDIA GPU device
                       plugin component. If not specified, the component will be enabled
-                      by default for clusters with NVIDIA GPU nodes.
+                      by default for clusters with NVIDIA GPU nodes. Mutually exclusive
+                      with nvidia_gpu_dra_driver.
+                    items:
+                      properties:
+                        enabled:
+                          description: Boolean flag whether the firewall should be
+                            enabled or not.
+                          type: boolean
+                      type: object
+                    type: array
+                  nvidiaGpuDraDriver:
+                    description: Block containing options for the NVIDIA GPU DRA driver
+                      component. Mutually exclusive with nvidia_gpu_device_plugin.
+                    items:
+                      properties:
+                        enabled:
+                          description: Boolean flag whether the firewall should be
+                            enabled or not.
+                          type: boolean
+                      type: object
+                    type: array
+                  p2pOciRegistryPlugin:
+                    description: Block containing options for the Peer-to-peer OCI
+                      registry plugin component. If not specified, the p2p-oci-registry-plugin
+                      component will not be installed in the cluster.
                     items:
                       properties:
                         enabled:
@@ -262,6 +353,10 @@ spec:
                       type: object
                     type: array
                   rdmaSharedDevicePlugin:
+                    description: Block containing options for the RDMA Shared Device
+                      Plugin (k8s-rdma-shared-dev-plugin) component. If not specified,
+                      the component will be enabled by default for clusters with GPU
+                      nodes connected to a dedicated high-speed networking fabric.
                     items:
                       properties:
                         enabled:
@@ -296,6 +391,28 @@ spec:
                       running in the Kubernetes cluster. For more information, see
                       here.
                     type: string
+                  sso:
+                    description: Block containing Single Sign-On (SSO) configuration
+                      for the cluster using OpenID Connect (OIDC).
+                    items:
+                      properties:
+                        clientId:
+                          description: The OIDC client ID for the cluster SSO configuration.
+                          type: string
+                        enabled:
+                          description: Boolean flag whether the firewall should be
+                            enabled or not.
+                          type: boolean
+                        issuerUrl:
+                          description: The OIDC issuer URL for the cluster SSO configuration.
+                          type: string
+                        required:
+                          description: 'Boolean flag indicating whether SSO is required
+                            as the only authentication method for the cluster. Default:
+                            false'
+                          type: boolean
+                      type: object
+                    type: array
                   surgeUpgrade:
                     description: 'Enable/disable surge upgrades for a cluster. Default:
                       true'
@@ -469,6 +586,11 @@ spec:
                             type: string
                         type: object
                     type: object
+                  workerSubnetUuid:
+                    description: The ID of the VPC subnet for placing worker nodes.
+                      Must be a valid subnet in the cluster VPC. Requires that vpc_uuid
+                      is also set.
+                    type: string
                 type: object
               initProvider:
                 description: |-
@@ -485,7 +607,8 @@ spec:
                 properties:
                   amdGpuDeviceMetricsExporterPlugin:
                     description: Block containing options for the AMD GPU device metrics
-                      exporter component.
+                      exporter component. If not specified, the component will not
+                      be installed in the cluster.
                     items:
                       properties:
                         enabled:
@@ -497,7 +620,19 @@ spec:
                   amdGpuDevicePlugin:
                     description: Block containing options for the AMD GPU device plugin
                       component. If not specified, the component will be enabled by
-                      default for clusters with AMD GPU nodes.
+                      default for clusters with AMD GPU nodes. Mutually exclusive
+                      with amd_gpu_dra_driver.
+                    items:
+                      properties:
+                        enabled:
+                          description: Boolean flag whether the firewall should be
+                            enabled or not.
+                          type: boolean
+                      type: object
+                    type: array
+                  amdGpuDraDriver:
+                    description: Block containing options for the AMD GPU DRA driver
+                      component. Mutually exclusive with amd_gpu_device_plugin.
                     items:
                       properties:
                         enabled:
@@ -513,9 +648,20 @@ spec:
                     type: boolean
                   clusterAutoscalerConfiguration:
                     description: Block containing options for cluster auto-scaling.
+                      For more information.
                     items:
                       properties:
                         expanders:
+                          description: A list of cluster autoscaler expander strategies
+                            to apply in order when selecting which node pool to scale
+                            up. Valid values are random, priority, and least-waste.
+                            The autoscaler uses each expander from the list to narrow
+                            the selection until a single node pool remains. If multiple
+                            node pools remain after all expanders are applied, one
+                            is chosen at random. When using the priority expander,
+                            configure priorities in the cluster-autoscaler-priority-expander
+                            ConfigMap in the kube-system namespace (see Configuring
+                            Priority Expander).
                           items:
                             type: string
                           type: array
@@ -550,16 +696,41 @@ spec:
                           type: boolean
                       type: object
                     type: array
+                  corednsAutoscaler:
+                    description: 'Block containing options for the CoreDNS Autoscaler
+                      component, which scales CoreDNS replicas in proportion to the
+                      cluster''s size. Default: true (for 1.36.0 and later)'
+                    items:
+                      properties:
+                        enabled:
+                          description: Boolean flag whether the firewall should be
+                            enabled or not.
+                          type: boolean
+                      type: object
+                    type: array
                   destroyAllAssociatedResources:
                     description: Use with caution. When set to true, all associated
                       DigitalOcean resources created via the Kubernetes API (load
                       balancers, volumes, and volume snapshots) will be destroyed
                       along with the cluster when it is destroyed.
                     type: boolean
+                  gpuOperatorReady:
+                    description: 'Enable/disable launching GPU nodes in the cluster
+                      with images without GPU drivers, allowing GPU operators to manage
+                      drivers. Mutually exclusive with other GPU-related cluster options,
+                      such as nvidia_gpu_dra_driver and amd_gpu_dra_driver. Default:
+                      false'
+                    type: boolean
                   ha:
                     description: 'Enable/disable the high availability control plane
                       for a cluster. Once enabled for a cluster, high availability
-                      cannot be disabled. Default: false'
+                      cannot be disabled. Default: true (for 1.36.0 and later)'
+                    type: boolean
+                  isolatedWorkers:
+                    description: 'Enable/disable isolated worker nodes for the cluster.
+                      When enabled, each worker node runs on dedicated hardware. This
+                      can only be set at creation time. The cluster''s VPC must have
+                      a NAT gateway attached. Default: false'
                     type: boolean
                   kubeconfigExpireSeconds:
                     description: The duration in seconds that the returned Kubernetes
@@ -586,6 +757,18 @@ spec:
                   name:
                     description: A name for the Kubernetes cluster.
                     type: string
+                  nfsCsiPlugin:
+                    description: Block containing options for the NFS CSI driver plugin
+                      component. If not specified, the NFS CSI plugin will not be
+                      installed in the cluster.
+                    items:
+                      properties:
+                        enabled:
+                          description: Boolean flag whether the firewall should be
+                            enabled or not.
+                          type: boolean
+                      type: object
+                    type: array
                   nodePool:
                     description: 'A block representing the cluster''s default node
                       pool. Additional node pools may be added to the cluster using
@@ -597,6 +780,12 @@ spec:
                           description: Enable auto-scaling of the number of nodes
                             in the node pool within the given min/max range.
                           type: boolean
+                        gpuPartitionMode:
+                          description: The AMD GPU partition mode to use for nodes
+                            in this pool. Valid values are AMD_PARTITION_MODE_SPX_NPS1
+                            and AMD_PARTITION_MODE_DPX_NPS2. This can only be set
+                            when the pool is created.
+                          type: string
                         labels:
                           additionalProperties:
                             type: string
@@ -663,7 +852,31 @@ spec:
                   nvidiaGpuDevicePlugin:
                     description: Block containing options for the NVIDIA GPU device
                       plugin component. If not specified, the component will be enabled
-                      by default for clusters with NVIDIA GPU nodes.
+                      by default for clusters with NVIDIA GPU nodes. Mutually exclusive
+                      with nvidia_gpu_dra_driver.
+                    items:
+                      properties:
+                        enabled:
+                          description: Boolean flag whether the firewall should be
+                            enabled or not.
+                          type: boolean
+                      type: object
+                    type: array
+                  nvidiaGpuDraDriver:
+                    description: Block containing options for the NVIDIA GPU DRA driver
+                      component. Mutually exclusive with nvidia_gpu_device_plugin.
+                    items:
+                      properties:
+                        enabled:
+                          description: Boolean flag whether the firewall should be
+                            enabled or not.
+                          type: boolean
+                      type: object
+                    type: array
+                  p2pOciRegistryPlugin:
+                    description: Block containing options for the Peer-to-peer OCI
+                      registry plugin component. If not specified, the p2p-oci-registry-plugin
+                      component will not be installed in the cluster.
                     items:
                       properties:
                         enabled:
@@ -673,6 +886,10 @@ spec:
                       type: object
                     type: array
                   rdmaSharedDevicePlugin:
+                    description: Block containing options for the RDMA Shared Device
+                      Plugin (k8s-rdma-shared-dev-plugin) component. If not specified,
+                      the component will be enabled by default for clusters with GPU
+                      nodes connected to a dedicated high-speed networking fabric.
                     items:
                       properties:
                         enabled:
@@ -707,6 +924,28 @@ spec:
                       running in the Kubernetes cluster. For more information, see
                       here.
                     type: string
+                  sso:
+                    description: Block containing Single Sign-On (SSO) configuration
+                      for the cluster using OpenID Connect (OIDC).
+                    items:
+                      properties:
+                        clientId:
+                          description: The OIDC client ID for the cluster SSO configuration.
+                          type: string
+                        enabled:
+                          description: Boolean flag whether the firewall should be
+                            enabled or not.
+                          type: boolean
+                        issuerUrl:
+                          description: The OIDC issuer URL for the cluster SSO configuration.
+                          type: string
+                        required:
+                          description: 'Boolean flag indicating whether SSO is required
+                            as the only authentication method for the cluster. Default:
+                            false'
+                          type: boolean
+                      type: object
+                    type: array
                   surgeUpgrade:
                     description: 'Enable/disable surge upgrades for a cluster. Default:
                       true'
@@ -880,6 +1119,11 @@ spec:
                             type: string
                         type: object
                     type: object
+                  workerSubnetUuid:
+                    description: The ID of the VPC subnet for placing worker nodes.
+                      Must be a valid subnet in the cluster VPC. Requires that vpc_uuid
+                      is also set.
+                    type: string
                 type: object
               managementPolicies:
                 default:
@@ -991,7 +1235,8 @@ spec:
                 properties:
                   amdGpuDeviceMetricsExporterPlugin:
                     description: Block containing options for the AMD GPU device metrics
-                      exporter component.
+                      exporter component. If not specified, the component will not
+                      be installed in the cluster.
                     items:
                       properties:
                         enabled:
@@ -1003,7 +1248,19 @@ spec:
                   amdGpuDevicePlugin:
                     description: Block containing options for the AMD GPU device plugin
                       component. If not specified, the component will be enabled by
-                      default for clusters with AMD GPU nodes.
+                      default for clusters with AMD GPU nodes. Mutually exclusive
+                      with amd_gpu_dra_driver.
+                    items:
+                      properties:
+                        enabled:
+                          description: Boolean flag whether the firewall should be
+                            enabled or not.
+                          type: boolean
+                      type: object
+                    type: array
+                  amdGpuDraDriver:
+                    description: Block containing options for the AMD GPU DRA driver
+                      component. Mutually exclusive with amd_gpu_device_plugin.
                     items:
                       properties:
                         enabled:
@@ -1019,9 +1276,20 @@ spec:
                     type: boolean
                   clusterAutoscalerConfiguration:
                     description: Block containing options for cluster auto-scaling.
+                      For more information.
                     items:
                       properties:
                         expanders:
+                          description: A list of cluster autoscaler expander strategies
+                            to apply in order when selecting which node pool to scale
+                            up. Valid values are random, priority, and least-waste.
+                            The autoscaler uses each expander from the list to narrow
+                            the selection until a single node pool remains. If multiple
+                            node pools remain after all expanders are applied, one
+                            is chosen at random. When using the priority expander,
+                            configure priorities in the cluster-autoscaler-priority-expander
+                            ConfigMap in the kube-system namespace (see Configuring
+                            Priority Expander).
                           items:
                             type: string
                           type: array
@@ -1056,6 +1324,18 @@ spec:
                           type: boolean
                       type: object
                     type: array
+                  corednsAutoscaler:
+                    description: 'Block containing options for the CoreDNS Autoscaler
+                      component, which scales CoreDNS replicas in proportion to the
+                      cluster''s size. Default: true (for 1.36.0 and later)'
+                    items:
+                      properties:
+                        enabled:
+                          description: Boolean flag whether the firewall should be
+                            enabled or not.
+                          type: boolean
+                      type: object
+                    type: array
                   createdAt:
                     description: The date and time when the Kubernetes cluster was
                       created.
@@ -1070,10 +1350,17 @@ spec:
                     description: The base URL of the API server on the Kubernetes
                       master node.
                     type: string
+                  gpuOperatorReady:
+                    description: 'Enable/disable launching GPU nodes in the cluster
+                      with images without GPU drivers, allowing GPU operators to manage
+                      drivers. Mutually exclusive with other GPU-related cluster options,
+                      such as nvidia_gpu_dra_driver and amd_gpu_dra_driver. Default:
+                      false'
+                    type: boolean
                   ha:
                     description: 'Enable/disable the high availability control plane
                       for a cluster. Once enabled for a cluster, high availability
-                      cannot be disabled. Default: false'
+                      cannot be disabled. Default: true (for 1.36.0 and later)'
                     type: boolean
                   id:
                     description: A unique ID that can be used to identify and reference
@@ -1084,6 +1371,12 @@ spec:
                       node. This will not be set if high availability is configured
                       on the cluster (v1.21+)
                     type: string
+                  isolatedWorkers:
+                    description: 'Enable/disable isolated worker nodes for the cluster.
+                      When enabled, each worker node runs on dedicated hardware. This
+                      can only be set at creation time. The cluster''s VPC must have
+                      a NAT gateway attached. Default: false'
+                    type: boolean
                   kubeconfigExpireSeconds:
                     description: The duration in seconds that the returned Kubernetes
                       credentials will be valid. If not set or 0, the credentials
@@ -1113,6 +1406,18 @@ spec:
                   name:
                     description: A name for the Kubernetes cluster.
                     type: string
+                  nfsCsiPlugin:
+                    description: Block containing options for the NFS CSI driver plugin
+                      component. If not specified, the NFS CSI plugin will not be
+                      installed in the cluster.
+                    items:
+                      properties:
+                        enabled:
+                          description: Boolean flag whether the firewall should be
+                            enabled or not.
+                          type: boolean
+                      type: object
+                    type: array
                   nodePool:
                     description: 'A block representing the cluster''s default node
                       pool. Additional node pools may be added to the cluster using
@@ -1129,6 +1434,12 @@ spec:
                           description: Enable auto-scaling of the number of nodes
                             in the node pool within the given min/max range.
                           type: boolean
+                        gpuPartitionMode:
+                          description: The AMD GPU partition mode to use for nodes
+                            in this pool. Valid values are AMD_PARTITION_MODE_SPX_NPS1
+                            and AMD_PARTITION_MODE_DPX_NPS2. This can only be set
+                            when the pool is created.
+                          type: string
                         id:
                           description: A unique ID that can be used to identify and
                             reference a Kubernetes cluster.
@@ -1229,7 +1540,31 @@ spec:
                   nvidiaGpuDevicePlugin:
                     description: Block containing options for the NVIDIA GPU device
                       plugin component. If not specified, the component will be enabled
-                      by default for clusters with NVIDIA GPU nodes.
+                      by default for clusters with NVIDIA GPU nodes. Mutually exclusive
+                      with nvidia_gpu_dra_driver.
+                    items:
+                      properties:
+                        enabled:
+                          description: Boolean flag whether the firewall should be
+                            enabled or not.
+                          type: boolean
+                      type: object
+                    type: array
+                  nvidiaGpuDraDriver:
+                    description: Block containing options for the NVIDIA GPU DRA driver
+                      component. Mutually exclusive with nvidia_gpu_device_plugin.
+                    items:
+                      properties:
+                        enabled:
+                          description: Boolean flag whether the firewall should be
+                            enabled or not.
+                          type: boolean
+                      type: object
+                    type: array
+                  p2pOciRegistryPlugin:
+                    description: Block containing options for the Peer-to-peer OCI
+                      registry plugin component. If not specified, the p2p-oci-registry-plugin
+                      component will not be installed in the cluster.
                     items:
                       properties:
                         enabled:
@@ -1239,6 +1574,10 @@ spec:
                       type: object
                     type: array
                   rdmaSharedDevicePlugin:
+                    description: Block containing options for the RDMA Shared Device
+                      Plugin (k8s-rdma-shared-dev-plugin) component. If not specified,
+                      the component will be enabled by default for clusters with GPU
+                      nodes connected to a dedicated high-speed networking fabric.
                     items:
                       properties:
                         enabled:
@@ -1273,6 +1612,28 @@ spec:
                       running in the Kubernetes cluster. For more information, see
                       here.
                     type: string
+                  sso:
+                    description: Block containing Single Sign-On (SSO) configuration
+                      for the cluster using OpenID Connect (OIDC).
+                    items:
+                      properties:
+                        clientId:
+                          description: The OIDC client ID for the cluster SSO configuration.
+                          type: string
+                        enabled:
+                          description: Boolean flag whether the firewall should be
+                            enabled or not.
+                          type: boolean
+                        issuerUrl:
+                          description: The OIDC issuer URL for the cluster SSO configuration.
+                          type: string
+                        required:
+                          description: 'Boolean flag indicating whether SSO is required
+                            as the only authentication method for the cluster. Default:
+                            false'
+                          type: boolean
+                      type: object
+                    type: array
                   status:
                     description: A string indicating the current status of the cluster.
                       Potential values include running, provisioning, and errored.
@@ -1305,6 +1666,11 @@ spec:
                   vpcUuid:
                     description: The ID of the VPC where the Kubernetes cluster will
                       be located.
+                    type: string
+                  workerSubnetUuid:
+                    description: The ID of the VPC subnet for placing worker nodes.
+                      Must be a valid subnet in the cluster VPC. Requires that vpc_uuid
+                      is also set.
                     type: string
                 type: object
               conditions:

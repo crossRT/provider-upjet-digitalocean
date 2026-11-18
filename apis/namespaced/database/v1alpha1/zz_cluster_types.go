@@ -96,6 +96,9 @@ type ClusterInitParameters struct {
 	// Database Droplet size associated with the cluster (ex. db-s-1vcpu-1gb). See the DigitalOcean API for a list of valid size slugs.
 	Size *string `json:"size,omitempty" tf:"size,omitempty"`
 
+	// Storage autoscaling configuration for the database cluster.
+	StorageAutoscale []StorageAutoscaleInitParameters `json:"storageAutoscale,omitempty" tf:"storage_autoscale,omitempty"`
+
 	// Defines the disk size, in MiB, allocated to the cluster. This can be adjusted on MySQL and PostreSQL clusters based on predefined ranges for each slug/droplet size.
 	StorageSizeMib *string `json:"storageSizeMib,omitempty" tf:"storage_size_mib,omitempty"`
 
@@ -169,6 +172,9 @@ type ClusterObservation struct {
 
 	// Database Droplet size associated with the cluster (ex. db-s-1vcpu-1gb). See the DigitalOcean API for a list of valid size slugs.
 	Size *string `json:"size,omitempty" tf:"size,omitempty"`
+
+	// Storage autoscaling configuration for the database cluster.
+	StorageAutoscale []StorageAutoscaleObservation `json:"storageAutoscale,omitempty" tf:"storage_autoscale,omitempty"`
 
 	// Defines the disk size, in MiB, allocated to the cluster. This can be adjusted on MySQL and PostreSQL clusters based on predefined ranges for each slug/droplet size.
 	StorageSizeMib *string `json:"storageSizeMib,omitempty" tf:"storage_size_mib,omitempty"`
@@ -264,6 +270,10 @@ type ClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	Size *string `json:"size,omitempty" tf:"size,omitempty"`
 
+	// Storage autoscaling configuration for the database cluster.
+	// +kubebuilder:validation:Optional
+	StorageAutoscale []StorageAutoscaleParameters `json:"storageAutoscale,omitempty" tf:"storage_autoscale,omitempty"`
+
 	// Defines the disk size, in MiB, allocated to the cluster. This can be adjusted on MySQL and PostreSQL clusters based on predefined ranges for each slug/droplet size.
 	// +kubebuilder:validation:Optional
 	StorageSizeMib *string `json:"storageSizeMib,omitempty" tf:"storage_size_mib,omitempty"`
@@ -315,6 +325,48 @@ type MaintenanceWindowParameters struct {
 	// The hour in UTC at which maintenance updates will be applied as a string in 24 hour format, e.g. 13:00.
 	// +kubebuilder:validation:Optional
 	Hour *string `json:"hour" tf:"hour,omitempty"`
+}
+
+type StorageAutoscaleInitParameters struct {
+
+	// Whether storage autoscaling is enabled for the cluster.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// The amount of storage, in GiB, to add when autoscaling is triggered.
+	// Storage increase step size in GiB (minimum 10 GiB, rounded to nearest 10 GiB). If not specified, system auto-calculates (25% of current size, min 50 GiB, max 1024 GiB, rounded to 10 GiB steps). Cooldown: 1 hour between autoscale operations.
+	IncrementGib *float64 `json:"incrementGib,omitempty" tf:"increment_gib,omitempty"`
+
+	// The storage utilization percentage at which autoscaling is triggered.
+	ThresholdPercent *float64 `json:"thresholdPercent,omitempty" tf:"threshold_percent,omitempty"`
+}
+
+type StorageAutoscaleObservation struct {
+
+	// Whether storage autoscaling is enabled for the cluster.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// The amount of storage, in GiB, to add when autoscaling is triggered.
+	// Storage increase step size in GiB (minimum 10 GiB, rounded to nearest 10 GiB). If not specified, system auto-calculates (25% of current size, min 50 GiB, max 1024 GiB, rounded to 10 GiB steps). Cooldown: 1 hour between autoscale operations.
+	IncrementGib *float64 `json:"incrementGib,omitempty" tf:"increment_gib,omitempty"`
+
+	// The storage utilization percentage at which autoscaling is triggered.
+	ThresholdPercent *float64 `json:"thresholdPercent,omitempty" tf:"threshold_percent,omitempty"`
+}
+
+type StorageAutoscaleParameters struct {
+
+	// Whether storage autoscaling is enabled for the cluster.
+	// +kubebuilder:validation:Optional
+	Enabled *bool `json:"enabled" tf:"enabled,omitempty"`
+
+	// The amount of storage, in GiB, to add when autoscaling is triggered.
+	// Storage increase step size in GiB (minimum 10 GiB, rounded to nearest 10 GiB). If not specified, system auto-calculates (25% of current size, min 50 GiB, max 1024 GiB, rounded to 10 GiB steps). Cooldown: 1 hour between autoscale operations.
+	// +kubebuilder:validation:Optional
+	IncrementGib *float64 `json:"incrementGib,omitempty" tf:"increment_gib,omitempty"`
+
+	// The storage utilization percentage at which autoscaling is triggered.
+	// +kubebuilder:validation:Optional
+	ThresholdPercent *float64 `json:"thresholdPercent,omitempty" tf:"threshold_percent,omitempty"`
 }
 
 // ClusterSpec defines the desired state of Cluster

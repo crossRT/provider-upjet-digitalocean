@@ -365,6 +365,7 @@ type AgentInitParameters struct {
 	// List of child agents
 	ParentAgents []ParentAgentsInitParameters `json:"parentAgents,omitempty" tf:"parent_agents,omitempty"`
 
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	// Project ID of the Agent
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-digitalocean/apis/cluster/project/v1alpha1.Project
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
@@ -411,8 +412,13 @@ type AgentInitParameters struct {
 	// URL for the Agent
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	// User ID linked with the Agent
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
+
+	// ).
+	// Identifier for the workspace
+	WorkspaceUUID *string `json:"workspaceUuid,omitempty" tf:"workspace_uuid,omitempty"`
 }
 
 type AgentObservation struct {
@@ -454,6 +460,7 @@ type AgentObservation struct {
 	// List of Functions
 	Functions []FunctionsObservation `json:"functions,omitempty" tf:"functions,omitempty"`
 
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// If case condition
@@ -495,6 +502,7 @@ type AgentObservation struct {
 	// List of child agents
 	ParentAgents []ParentAgentsObservation `json:"parentAgents,omitempty" tf:"parent_agents,omitempty"`
 
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	// Project ID of the Agent
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 
@@ -538,8 +546,13 @@ type AgentObservation struct {
 	// Timestamp when the Agent was updated
 	UpdatedAt *string `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
 
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	// User ID linked with the Agent
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
+
+	// ).
+	// Identifier for the workspace
+	WorkspaceUUID *string `json:"workspaceUuid,omitempty" tf:"workspace_uuid,omitempty"`
 }
 
 type AgentParameters struct {
@@ -653,6 +666,7 @@ type AgentParameters struct {
 	// +kubebuilder:validation:Optional
 	ParentAgents []ParentAgentsParameters `json:"parentAgents,omitempty" tf:"parent_agents,omitempty"`
 
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	// Project ID of the Agent
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-digitalocean/apis/cluster/project/v1alpha1.Project
 	// +kubebuilder:validation:Optional
@@ -711,9 +725,15 @@ type AgentParameters struct {
 	// +kubebuilder:validation:Optional
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	// User ID linked with the Agent
 	// +kubebuilder:validation:Optional
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
+
+	// ).
+	// Identifier for the workspace
+	// +kubebuilder:validation:Optional
+	WorkspaceUUID *string `json:"workspaceUuid,omitempty" tf:"workspace_uuid,omitempty"`
 }
 
 type AgreementInitParameters struct {
@@ -823,6 +843,8 @@ type ChatbotIdentifiersInitParameters struct {
 }
 
 type ChatbotIdentifiersObservation struct {
+
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	ChatbotID *string `json:"chatbotId,omitempty" tf:"chatbot_id,omitempty"`
 }
 
@@ -1030,6 +1052,8 @@ type ChildAgentsChatbotIdentifiersInitParameters struct {
 }
 
 type ChildAgentsChatbotIdentifiersObservation struct {
+
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	ChatbotID *string `json:"chatbotId,omitempty" tf:"chatbot_id,omitempty"`
 }
 
@@ -1138,6 +1162,7 @@ type ChildAgentsInitParameters struct {
 	// Name of the Agent
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	// Project ID of the Agent
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 
@@ -1153,6 +1178,7 @@ type ChildAgentsObservation struct {
 	// List of API Keys
 	APIKeys []ChildAgentsAPIKeysObservation `json:"apiKeys,omitempty" tf:"api_keys,omitempty"`
 
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	// ID of the child agent
 	AgentID *string `json:"agentId,omitempty" tf:"agent_id,omitempty"`
 
@@ -1181,6 +1207,7 @@ type ChildAgentsObservation struct {
 	// Name of the Agent
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	// Project ID of the Agent
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 
@@ -1231,6 +1258,7 @@ type ChildAgentsParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	// Project ID of the Agent
 	// +kubebuilder:validation:Optional
 	ProjectID *string `json:"projectId" tf:"project_id,omitempty"`
@@ -1414,6 +1442,7 @@ type FunctionsParameters struct {
 
 type KnowledgeBasesInitParameters struct {
 
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	// Database ID of the Knowledge Base
 	DatabaseID *string `json:"databaseId,omitempty" tf:"database_id,omitempty"`
 
@@ -1430,6 +1459,7 @@ type KnowledgeBasesInitParameters struct {
 	// Name of the Knowledge Base
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	// Project ID of the Knowledge Base
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 
@@ -1439,6 +1469,7 @@ type KnowledgeBasesInitParameters struct {
 	// List of tags
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	// User ID of the Knowledge Base
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 }
@@ -1539,6 +1570,7 @@ type KnowledgeBasesObservation struct {
 	// Created At timestamp for the Knowledge Base
 	CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
 
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	// Database ID of the Knowledge Base
 	DatabaseID *string `json:"databaseId,omitempty" tf:"database_id,omitempty"`
 
@@ -1555,6 +1587,7 @@ type KnowledgeBasesObservation struct {
 	// Name of the Knowledge Base
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	// Project ID of the Knowledge Base
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 
@@ -1571,12 +1604,14 @@ type KnowledgeBasesObservation struct {
 	// Timestamp when the Knowledge Base was updated
 	UpdatedAt *string `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
 
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	// User ID of the Knowledge Base
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 }
 
 type KnowledgeBasesParameters struct {
 
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	// Database ID of the Knowledge Base
 	// +kubebuilder:validation:Optional
 	DatabaseID *string `json:"databaseId,omitempty" tf:"database_id,omitempty"`
@@ -1598,6 +1633,7 @@ type KnowledgeBasesParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	// Project ID of the Knowledge Base
 	// +kubebuilder:validation:Optional
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
@@ -1610,6 +1646,7 @@ type KnowledgeBasesParameters struct {
 	// +kubebuilder:validation:Optional
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	// User ID of the Knowledge Base
 	// +kubebuilder:validation:Optional
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
@@ -2105,6 +2142,8 @@ type ParentAgentsChatbotIdentifiersInitParameters struct {
 }
 
 type ParentAgentsChatbotIdentifiersObservation struct {
+
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	ChatbotID *string `json:"chatbotId,omitempty" tf:"chatbot_id,omitempty"`
 }
 
@@ -2284,6 +2323,7 @@ type ParentAgentsInitParameters struct {
 	// Name of the Agent
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	// Project ID of the Agent
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 
@@ -2299,6 +2339,7 @@ type ParentAgentsObservation struct {
 	// List of API Keys
 	APIKeys []ParentAgentsAPIKeysObservation `json:"apiKeys,omitempty" tf:"api_keys,omitempty"`
 
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	// ID of the child agent
 	AgentID *string `json:"agentId,omitempty" tf:"agent_id,omitempty"`
 
@@ -2327,6 +2368,7 @@ type ParentAgentsObservation struct {
 	// Name of the Agent
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	// Project ID of the Agent
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 
@@ -2377,6 +2419,7 @@ type ParentAgentsParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	// Project ID of the Agent
 	// +kubebuilder:validation:Optional
 	ProjectID *string `json:"projectId" tf:"project_id,omitempty"`
@@ -2422,6 +2465,7 @@ type TemplateInitParameters struct {
 
 type TemplateKnowledgeBasesInitParameters struct {
 
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	// Database ID of the Knowledge Base
 	DatabaseID *string `json:"databaseId,omitempty" tf:"database_id,omitempty"`
 
@@ -2438,6 +2482,7 @@ type TemplateKnowledgeBasesInitParameters struct {
 	// Name of the Knowledge Base
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	// Project ID of the Knowledge Base
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 
@@ -2447,6 +2492,7 @@ type TemplateKnowledgeBasesInitParameters struct {
 	// List of tags
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	// User ID of the Knowledge Base
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 }
@@ -2459,6 +2505,7 @@ type TemplateKnowledgeBasesObservation struct {
 	// Created At timestamp for the Knowledge Base
 	CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
 
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	// Database ID of the Knowledge Base
 	DatabaseID *string `json:"databaseId,omitempty" tf:"database_id,omitempty"`
 
@@ -2475,6 +2522,7 @@ type TemplateKnowledgeBasesObservation struct {
 	// Name of the Knowledge Base
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	// Project ID of the Knowledge Base
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 
@@ -2491,12 +2539,14 @@ type TemplateKnowledgeBasesObservation struct {
 	// Timestamp when the Knowledge Base was updated
 	UpdatedAt *string `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
 
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	// User ID of the Knowledge Base
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 }
 
 type TemplateKnowledgeBasesParameters struct {
 
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	// Database ID of the Knowledge Base
 	// +kubebuilder:validation:Optional
 	DatabaseID *string `json:"databaseId,omitempty" tf:"database_id,omitempty"`
@@ -2518,6 +2568,7 @@ type TemplateKnowledgeBasesParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	// Project ID of the Knowledge Base
 	// +kubebuilder:validation:Optional
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
@@ -2530,6 +2581,7 @@ type TemplateKnowledgeBasesParameters struct {
 	// +kubebuilder:validation:Optional
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
+	// , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
 	// User ID of the Knowledge Base
 	// +kubebuilder:validation:Optional
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`

@@ -289,6 +289,26 @@ spec:
                     description: A comma separated string specifying the  SQL modes
                       for a MySQL cluster.
                     type: string
+                  storageAutoscale:
+                    description: Storage autoscaling configuration for the database
+                      cluster.
+                    items:
+                      properties:
+                        enabled:
+                          description: Whether storage autoscaling is enabled for
+                            the cluster.
+                          type: boolean
+                        incrementGib:
+                          description: |-
+                            The amount of storage, in GiB, to add when autoscaling is triggered.
+                            Storage increase step size in GiB (minimum 10 GiB, rounded to nearest 10 GiB). If not specified, system auto-calculates (25% of current size, min 50 GiB, max 1024 GiB, rounded to 10 GiB steps). Cooldown: 1 hour between autoscale operations.
+                          type: number
+                        thresholdPercent:
+                          description: The storage utilization percentage at which
+                            autoscaling is triggered.
+                          type: number
+                      type: object
+                    type: array
                   storageSizeMib:
                     description: Defines the disk size, in MiB, allocated to the cluster.
                       This can be adjusted on MySQL and PostreSQL clusters based on
@@ -615,6 +635,26 @@ spec:
                     description: A comma separated string specifying the  SQL modes
                       for a MySQL cluster.
                     type: string
+                  storageAutoscale:
+                    description: Storage autoscaling configuration for the database
+                      cluster.
+                    items:
+                      properties:
+                        enabled:
+                          description: Whether storage autoscaling is enabled for
+                            the cluster.
+                          type: boolean
+                        incrementGib:
+                          description: |-
+                            The amount of storage, in GiB, to add when autoscaling is triggered.
+                            Storage increase step size in GiB (minimum 10 GiB, rounded to nearest 10 GiB). If not specified, system auto-calculates (25% of current size, min 50 GiB, max 1024 GiB, rounded to 10 GiB steps). Cooldown: 1 hour between autoscale operations.
+                          type: number
+                        thresholdPercent:
+                          description: The storage utilization percentage at which
+                            autoscaling is triggered.
+                          type: number
+                      type: object
+                    type: array
                   storageSizeMib:
                     description: Defines the disk size, in MiB, allocated to the cluster.
                       This can be adjusted on MySQL and PostreSQL clusters based on
@@ -915,6 +955,26 @@ spec:
                     description: A comma separated string specifying the  SQL modes
                       for a MySQL cluster.
                     type: string
+                  storageAutoscale:
+                    description: Storage autoscaling configuration for the database
+                      cluster.
+                    items:
+                      properties:
+                        enabled:
+                          description: Whether storage autoscaling is enabled for
+                            the cluster.
+                          type: boolean
+                        incrementGib:
+                          description: |-
+                            The amount of storage, in GiB, to add when autoscaling is triggered.
+                            Storage increase step size in GiB (minimum 10 GiB, rounded to nearest 10 GiB). If not specified, system auto-calculates (25% of current size, min 50 GiB, max 1024 GiB, rounded to 10 GiB steps). Cooldown: 1 hour between autoscale operations.
+                          type: number
+                        thresholdPercent:
+                          description: The storage utilization percentage at which
+                            autoscaling is triggered.
+                          type: number
+                      type: object
+                    type: array
                   storageSizeMib:
                     description: Defines the disk size, in MiB, allocated to the cluster.
                       This can be adjusted on MySQL and PostreSQL clusters based on

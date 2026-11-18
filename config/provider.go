@@ -96,15 +96,17 @@ var ExternalNameConfigs = map[string]ujconfig.ExternalName{
 	// digitalocean_partner_attachment produces an empty schema after upjet
 	// parsing (Plugin Framework resource); skipped intentionally.
 
-	// GradientAI (AI agent platform)
-	"digitalocean_gradientai_agent":                           ujconfig.IdentifierFromProvider,
-	"digitalocean_gradientai_knowledge_base":                  ujconfig.IdentifierFromProvider,
-	"digitalocean_gradientai_knowledge_base_data_source":      ujconfig.IdentifierFromProvider,
-	"digitalocean_gradientai_agent_knowledge_base_attachment": ujconfig.IdentifierFromProvider,
-	"digitalocean_gradientai_agent_route":                     ujconfig.IdentifierFromProvider,
-	"digitalocean_gradientai_function":                        ujconfig.IdentifierFromProvider,
-	"digitalocean_gradientai_openai_api_key":                  ujconfig.IdentifierFromProvider,
-	"digitalocean_gradientai_indexing_job_cancel":             ujconfig.IdentifierFromProvider,
+	// GradientAI (AI agent platform). Upstream renamed digitalocean_gradientai_*
+	// to digitalocean_agent_platform_*; ShortGroup and Kinds are kept so the
+	// gradientai API group is unchanged.
+	"digitalocean_agent_platform_agent":                           ujconfig.IdentifierFromProvider,
+	"digitalocean_agent_platform_knowledge_base":                  ujconfig.IdentifierFromProvider,
+	"digitalocean_agent_platform_knowledge_base_data_source":      ujconfig.IdentifierFromProvider,
+	"digitalocean_agent_platform_agent_knowledge_base_attachment": ujconfig.IdentifierFromProvider,
+	"digitalocean_agent_platform_agent_route":                     ujconfig.IdentifierFromProvider,
+	"digitalocean_agent_platform_function":                        ujconfig.IdentifierFromProvider,
+	"digitalocean_agent_platform_openai_api_key":                  ujconfig.IdentifierFromProvider,
+	"digitalocean_agent_platform_indexing_job_cancel":             ujconfig.IdentifierFromProvider,
 
 	"digitalocean_vpc_peering":                 ujconfig.IdentifierFromProvider,
 	"digitalocean_vpc_nat_gateway":             ujconfig.IdentifierFromProvider,
@@ -508,17 +510,17 @@ func newProvider(rootGroup string) *ujconfig.Provider {
 		r.Kind = "AutoscalePool"
 	})
 	// GradientAI resources
-	pc.AddResourceConfigurator("digitalocean_gradientai_agent", func(r *ujconfig.Resource) {
+	pc.AddResourceConfigurator("digitalocean_agent_platform_agent", func(r *ujconfig.Resource) {
 		r.ShortGroup = gradientaiShortGroup
 		r.Kind = "Agent"
 		r.References["project_id"] = ujconfig.Reference{
 			TerraformName: "digitalocean_project",
 		}
 		r.References["open_ai_key_uuid"] = ujconfig.Reference{
-			TerraformName: "digitalocean_gradientai_openai_api_key",
+			TerraformName: "digitalocean_agent_platform_openai_api_key",
 		}
 	})
-	pc.AddResourceConfigurator("digitalocean_gradientai_knowledge_base", func(r *ujconfig.Resource) {
+	pc.AddResourceConfigurator("digitalocean_agent_platform_knowledge_base", func(r *ujconfig.Resource) {
 		r.ShortGroup = gradientaiShortGroup
 		r.Kind = "KnowledgeBase"
 		r.References["project_id"] = ujconfig.Reference{
@@ -528,45 +530,45 @@ func newProvider(rootGroup string) *ujconfig.Provider {
 			TerraformName: "digitalocean_vpc",
 		}
 	})
-	pc.AddResourceConfigurator("digitalocean_gradientai_knowledge_base_data_source", func(r *ujconfig.Resource) {
+	pc.AddResourceConfigurator("digitalocean_agent_platform_knowledge_base_data_source", func(r *ujconfig.Resource) {
 		r.ShortGroup = gradientaiShortGroup
 		r.Kind = "KnowledgeBaseDataSource"
 		r.References["knowledge_base_uuid"] = ujconfig.Reference{
-			TerraformName: "digitalocean_gradientai_knowledge_base",
+			TerraformName: "digitalocean_agent_platform_knowledge_base",
 		}
 	})
-	pc.AddResourceConfigurator("digitalocean_gradientai_agent_knowledge_base_attachment", func(r *ujconfig.Resource) {
+	pc.AddResourceConfigurator("digitalocean_agent_platform_agent_knowledge_base_attachment", func(r *ujconfig.Resource) {
 		r.ShortGroup = gradientaiShortGroup
 		r.Kind = "AgentKnowledgeBaseAttachment"
 		r.References["agent_uuid"] = ujconfig.Reference{
-			TerraformName: "digitalocean_gradientai_agent",
+			TerraformName: "digitalocean_agent_platform_agent",
 		}
 		r.References["knowledge_base_uuid"] = ujconfig.Reference{
-			TerraformName: "digitalocean_gradientai_knowledge_base",
+			TerraformName: "digitalocean_agent_platform_knowledge_base",
 		}
 	})
-	pc.AddResourceConfigurator("digitalocean_gradientai_agent_route", func(r *ujconfig.Resource) {
+	pc.AddResourceConfigurator("digitalocean_agent_platform_agent_route", func(r *ujconfig.Resource) {
 		r.ShortGroup = gradientaiShortGroup
 		r.Kind = "AgentRoute"
 		r.References["parent_agent_uuid"] = ujconfig.Reference{
-			TerraformName: "digitalocean_gradientai_agent",
+			TerraformName: "digitalocean_agent_platform_agent",
 		}
 		r.References["child_agent_uuid"] = ujconfig.Reference{
-			TerraformName: "digitalocean_gradientai_agent",
+			TerraformName: "digitalocean_agent_platform_agent",
 		}
 	})
-	pc.AddResourceConfigurator("digitalocean_gradientai_function", func(r *ujconfig.Resource) {
+	pc.AddResourceConfigurator("digitalocean_agent_platform_function", func(r *ujconfig.Resource) {
 		r.ShortGroup = gradientaiShortGroup
 		r.Kind = "Function"
 		r.References["agent_id"] = ujconfig.Reference{
-			TerraformName: "digitalocean_gradientai_agent",
+			TerraformName: "digitalocean_agent_platform_agent",
 		}
 	})
-	pc.AddResourceConfigurator("digitalocean_gradientai_openai_api_key", func(r *ujconfig.Resource) {
+	pc.AddResourceConfigurator("digitalocean_agent_platform_openai_api_key", func(r *ujconfig.Resource) {
 		r.ShortGroup = gradientaiShortGroup
 		r.Kind = "OpenAIAPIKey"
 	})
-	pc.AddResourceConfigurator("digitalocean_gradientai_indexing_job_cancel", func(r *ujconfig.Resource) {
+	pc.AddResourceConfigurator("digitalocean_agent_platform_indexing_job_cancel", func(r *ujconfig.Resource) {
 		r.ShortGroup = gradientaiShortGroup
 		r.Kind = "IndexingJobCancel"
 	})

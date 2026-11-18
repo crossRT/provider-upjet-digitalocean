@@ -52,7 +52,28 @@ type AmdGpuDevicePluginParameters struct {
 	Enabled *bool `json:"enabled" tf:"enabled,omitempty"`
 }
 
+type AmdGpuDraDriverInitParameters struct {
+
+	// Boolean flag whether the firewall should be enabled or not.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+}
+
+type AmdGpuDraDriverObservation struct {
+
+	// Boolean flag whether the firewall should be enabled or not.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+}
+
+type AmdGpuDraDriverParameters struct {
+
+	// Boolean flag whether the firewall should be enabled or not.
+	// +kubebuilder:validation:Optional
+	Enabled *bool `json:"enabled" tf:"enabled,omitempty"`
+}
+
 type ClusterAutoscalerConfigurationInitParameters struct {
+
+	// A list of cluster autoscaler expander strategies to apply in order when selecting which node pool to scale up. Valid values are random, priority, and least-waste. The autoscaler uses each expander from the list to narrow the selection until a single node pool remains. If multiple node pools remain after all expanders are applied, one is chosen at random. When using the priority expander, configure priorities in the cluster-autoscaler-priority-expander ConfigMap in the kube-system namespace (see Configuring Priority Expander).
 	Expanders []*string `json:"expanders,omitempty" tf:"expanders,omitempty"`
 
 	// String setting how long a node should be unneeded before it's eligible for scale down.
@@ -63,6 +84,8 @@ type ClusterAutoscalerConfigurationInitParameters struct {
 }
 
 type ClusterAutoscalerConfigurationObservation struct {
+
+	// A list of cluster autoscaler expander strategies to apply in order when selecting which node pool to scale up. Valid values are random, priority, and least-waste. The autoscaler uses each expander from the list to narrow the selection until a single node pool remains. If multiple node pools remain after all expanders are applied, one is chosen at random. When using the priority expander, configure priorities in the cluster-autoscaler-priority-expander ConfigMap in the kube-system namespace (see Configuring Priority Expander).
 	Expanders []*string `json:"expanders,omitempty" tf:"expanders,omitempty"`
 
 	// String setting how long a node should be unneeded before it's eligible for scale down.
@@ -74,6 +97,7 @@ type ClusterAutoscalerConfigurationObservation struct {
 
 type ClusterAutoscalerConfigurationParameters struct {
 
+	// A list of cluster autoscaler expander strategies to apply in order when selecting which node pool to scale up. Valid values are random, priority, and least-waste. The autoscaler uses each expander from the list to narrow the selection until a single node pool remains. If multiple node pools remain after all expanders are applied, one is chosen at random. When using the priority expander, configure priorities in the cluster-autoscaler-priority-expander ConfigMap in the kube-system namespace (see Configuring Priority Expander).
 	// +kubebuilder:validation:Optional
 	Expanders []*string `json:"expanders,omitempty" tf:"expanders,omitempty"`
 
@@ -88,16 +112,19 @@ type ClusterAutoscalerConfigurationParameters struct {
 
 type ClusterInitParameters struct {
 
-	// Block containing options for the AMD GPU device metrics exporter component.
+	// Block containing options for the AMD GPU device metrics exporter component. If not specified, the component will not be installed in the cluster.
 	AmdGpuDeviceMetricsExporterPlugin []AmdGpuDeviceMetricsExporterPluginInitParameters `json:"amdGpuDeviceMetricsExporterPlugin,omitempty" tf:"amd_gpu_device_metrics_exporter_plugin,omitempty"`
 
-	// Block containing options for the AMD GPU device plugin component. If not specified, the component will be enabled by default for clusters with AMD GPU nodes.
+	// Block containing options for the AMD GPU device plugin component. If not specified, the component will be enabled by default for clusters with AMD GPU nodes. Mutually exclusive with amd_gpu_dra_driver.
 	AmdGpuDevicePlugin []AmdGpuDevicePluginInitParameters `json:"amdGpuDevicePlugin,omitempty" tf:"amd_gpu_device_plugin,omitempty"`
+
+	// Block containing options for the AMD GPU DRA driver component. Mutually exclusive with amd_gpu_device_plugin.
+	AmdGpuDraDriver []AmdGpuDraDriverInitParameters `json:"amdGpuDraDriver,omitempty" tf:"amd_gpu_dra_driver,omitempty"`
 
 	// A boolean value indicating whether the cluster will be automatically upgraded to new patch releases during its maintenance window.
 	AutoUpgrade *bool `json:"autoUpgrade,omitempty" tf:"auto_upgrade,omitempty"`
 
-	// Block containing options for cluster auto-scaling.
+	// Block containing options for cluster auto-scaling. For more information.
 	ClusterAutoscalerConfiguration []ClusterAutoscalerConfigurationInitParameters `json:"clusterAutoscalerConfiguration,omitempty" tf:"cluster_autoscaler_configuration,omitempty"`
 
 	// The range of IP addresses in the overlay network of the Kubernetes cluster. For more information, see here.
@@ -106,11 +133,20 @@ type ClusterInitParameters struct {
 	// A block representing the cluster's control plane firewall
 	ControlPlaneFirewall []ControlPlaneFirewallInitParameters `json:"controlPlaneFirewall,omitempty" tf:"control_plane_firewall,omitempty"`
 
+	// Block containing options for the CoreDNS Autoscaler component, which scales CoreDNS replicas in proportion to the cluster's size. Default: true (for 1.36.0 and later)
+	CorednsAutoscaler []CorednsAutoscalerInitParameters `json:"corednsAutoscaler,omitempty" tf:"coredns_autoscaler,omitempty"`
+
 	// Use with caution. When set to true, all associated DigitalOcean resources created via the Kubernetes API (load balancers, volumes, and volume snapshots) will be destroyed along with the cluster when it is destroyed.
 	DestroyAllAssociatedResources *bool `json:"destroyAllAssociatedResources,omitempty" tf:"destroy_all_associated_resources,omitempty"`
 
-	// Enable/disable the high availability control plane for a cluster. Once enabled for a cluster, high availability cannot be disabled. Default: false
+	// Enable/disable launching GPU nodes in the cluster with images without GPU drivers, allowing GPU operators to manage drivers. Mutually exclusive with other GPU-related cluster options, such as nvidia_gpu_dra_driver and amd_gpu_dra_driver. Default: false
+	GpuOperatorReady *bool `json:"gpuOperatorReady,omitempty" tf:"gpu_operator_ready,omitempty"`
+
+	// Enable/disable the high availability control plane for a cluster. Once enabled for a cluster, high availability cannot be disabled. Default: true (for 1.36.0 and later)
 	Ha *bool `json:"ha,omitempty" tf:"ha,omitempty"`
+
+	// Enable/disable isolated worker nodes for the cluster. When enabled, each worker node runs on dedicated hardware. This can only be set at creation time. The cluster's VPC must have a NAT gateway attached. Default: false
+	IsolatedWorkers *bool `json:"isolatedWorkers,omitempty" tf:"isolated_workers,omitempty"`
 
 	// The duration in seconds that the returned Kubernetes credentials will be valid. If not set or 0, the credentials will have a 7 day expiry.
 	KubeconfigExpireSeconds *float64 `json:"kubeconfigExpireSeconds,omitempty" tf:"kubeconfig_expire_seconds,omitempty"`
@@ -118,15 +154,25 @@ type ClusterInitParameters struct {
 	// A block representing the cluster's maintenance window. Updates will be applied within this window. If not specified, a default maintenance window will be chosen. auto_upgrade must be set to true for this to have an effect.
 	MaintenancePolicy []MaintenancePolicyInitParameters `json:"maintenancePolicy,omitempty" tf:"maintenance_policy,omitempty"`
 
+	// Block containing options for the NFS CSI driver plugin component. If not specified, the NFS CSI plugin will not be installed in the cluster.
+	NFSCsiPlugin []NFSCsiPluginInitParameters `json:"nfsCsiPlugin,omitempty" tf:"nfs_csi_plugin,omitempty"`
+
 	// A name for the Kubernetes cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// A block representing the cluster's default node pool. Additional node pools may be added to the cluster using the digitalocean_kubernetes_node_pool resource. The following arguments may be specified:
 	NodePool []NodePoolInitParameters `json:"nodePool,omitempty" tf:"node_pool,omitempty"`
 
-	// Block containing options for the NVIDIA GPU device plugin component. If not specified, the component will be enabled by default for clusters with NVIDIA GPU nodes.
+	// Block containing options for the NVIDIA GPU device plugin component. If not specified, the component will be enabled by default for clusters with NVIDIA GPU nodes. Mutually exclusive with nvidia_gpu_dra_driver.
 	NvidiaGpuDevicePlugin []NvidiaGpuDevicePluginInitParameters `json:"nvidiaGpuDevicePlugin,omitempty" tf:"nvidia_gpu_device_plugin,omitempty"`
 
+	// Block containing options for the NVIDIA GPU DRA driver component. Mutually exclusive with nvidia_gpu_device_plugin.
+	NvidiaGpuDraDriver []NvidiaGpuDraDriverInitParameters `json:"nvidiaGpuDraDriver,omitempty" tf:"nvidia_gpu_dra_driver,omitempty"`
+
+	// Block containing options for the Peer-to-peer OCI registry plugin component. If not specified, the p2p-oci-registry-plugin component will not be installed in the cluster.
+	P2POciRegistryPlugin []P2POciRegistryPluginInitParameters `json:"p2pOciRegistryPlugin,omitempty" tf:"p2p_oci_registry_plugin,omitempty"`
+
+	// Block containing options for the RDMA Shared Device Plugin (k8s-rdma-shared-dev-plugin) component. If not specified, the component will be enabled by default for clusters with GPU nodes connected to a dedicated high-speed networking fabric.
 	RdmaSharedDevicePlugin []RdmaSharedDevicePluginInitParameters `json:"rdmaSharedDevicePlugin,omitempty" tf:"rdma_shared_device_plugin,omitempty"`
 
 	// The slug identifier for the region where the Kubernetes cluster will be created.
@@ -140,6 +186,9 @@ type ClusterInitParameters struct {
 
 	// The range of assignable IP addresses for services running in the Kubernetes cluster. For more information, see here.
 	ServiceSubnet *string `json:"serviceSubnet,omitempty" tf:"service_subnet,omitempty"`
+
+	// Block containing Single Sign-On (SSO) configuration for the cluster using OpenID Connect (OIDC).
+	Sso []SsoInitParameters `json:"sso,omitempty" tf:"sso,omitempty"`
 
 	// Enable/disable surge upgrades for a cluster. Default: true
 	SurgeUpgrade *bool `json:"surgeUpgrade,omitempty" tf:"surge_upgrade,omitempty"`
@@ -171,20 +220,26 @@ type ClusterInitParameters struct {
 
 	// The slug identifier for the version of Kubernetes used for the cluster. Use doctl to find the available versions doctl kubernetes options versions. (Note: A cluster may only be upgraded to newer versions in-place. If the version is decreased, a new resource will be created.)
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
+
+	// The ID of the VPC subnet for placing worker nodes. Must be a valid subnet in the cluster VPC. Requires that vpc_uuid is also set.
+	WorkerSubnetUUID *string `json:"workerSubnetUuid,omitempty" tf:"worker_subnet_uuid,omitempty"`
 }
 
 type ClusterObservation struct {
 
-	// Block containing options for the AMD GPU device metrics exporter component.
+	// Block containing options for the AMD GPU device metrics exporter component. If not specified, the component will not be installed in the cluster.
 	AmdGpuDeviceMetricsExporterPlugin []AmdGpuDeviceMetricsExporterPluginObservation `json:"amdGpuDeviceMetricsExporterPlugin,omitempty" tf:"amd_gpu_device_metrics_exporter_plugin,omitempty"`
 
-	// Block containing options for the AMD GPU device plugin component. If not specified, the component will be enabled by default for clusters with AMD GPU nodes.
+	// Block containing options for the AMD GPU device plugin component. If not specified, the component will be enabled by default for clusters with AMD GPU nodes. Mutually exclusive with amd_gpu_dra_driver.
 	AmdGpuDevicePlugin []AmdGpuDevicePluginObservation `json:"amdGpuDevicePlugin,omitempty" tf:"amd_gpu_device_plugin,omitempty"`
+
+	// Block containing options for the AMD GPU DRA driver component. Mutually exclusive with amd_gpu_device_plugin.
+	AmdGpuDraDriver []AmdGpuDraDriverObservation `json:"amdGpuDraDriver,omitempty" tf:"amd_gpu_dra_driver,omitempty"`
 
 	// A boolean value indicating whether the cluster will be automatically upgraded to new patch releases during its maintenance window.
 	AutoUpgrade *bool `json:"autoUpgrade,omitempty" tf:"auto_upgrade,omitempty"`
 
-	// Block containing options for cluster auto-scaling.
+	// Block containing options for cluster auto-scaling. For more information.
 	ClusterAutoscalerConfiguration []ClusterAutoscalerConfigurationObservation `json:"clusterAutoscalerConfiguration,omitempty" tf:"cluster_autoscaler_configuration,omitempty"`
 
 	// The range of IP addresses in the overlay network of the Kubernetes cluster. For more information, see here.
@@ -192,6 +247,9 @@ type ClusterObservation struct {
 
 	// A block representing the cluster's control plane firewall
 	ControlPlaneFirewall []ControlPlaneFirewallObservation `json:"controlPlaneFirewall,omitempty" tf:"control_plane_firewall,omitempty"`
+
+	// Block containing options for the CoreDNS Autoscaler component, which scales CoreDNS replicas in proportion to the cluster's size. Default: true (for 1.36.0 and later)
+	CorednsAutoscaler []CorednsAutoscalerObservation `json:"corednsAutoscaler,omitempty" tf:"coredns_autoscaler,omitempty"`
 
 	// The date and time when the Kubernetes cluster was created.
 	CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
@@ -202,7 +260,10 @@ type ClusterObservation struct {
 	// The base URL of the API server on the Kubernetes master node.
 	Endpoint *string `json:"endpoint,omitempty" tf:"endpoint,omitempty"`
 
-	// Enable/disable the high availability control plane for a cluster. Once enabled for a cluster, high availability cannot be disabled. Default: false
+	// Enable/disable launching GPU nodes in the cluster with images without GPU drivers, allowing GPU operators to manage drivers. Mutually exclusive with other GPU-related cluster options, such as nvidia_gpu_dra_driver and amd_gpu_dra_driver. Default: false
+	GpuOperatorReady *bool `json:"gpuOperatorReady,omitempty" tf:"gpu_operator_ready,omitempty"`
+
+	// Enable/disable the high availability control plane for a cluster. Once enabled for a cluster, high availability cannot be disabled. Default: true (for 1.36.0 and later)
 	Ha *bool `json:"ha,omitempty" tf:"ha,omitempty"`
 
 	// A unique ID that can be used to identify and reference a Kubernetes cluster.
@@ -211,11 +272,17 @@ type ClusterObservation struct {
 	// The public IPv4 address of the Kubernetes master node. This will not be set if high availability is configured on the cluster (v1.21+)
 	IPv4Address *string `json:"ipv4Address,omitempty" tf:"ipv4_address,omitempty"`
 
+	// Enable/disable isolated worker nodes for the cluster. When enabled, each worker node runs on dedicated hardware. This can only be set at creation time. The cluster's VPC must have a NAT gateway attached. Default: false
+	IsolatedWorkers *bool `json:"isolatedWorkers,omitempty" tf:"isolated_workers,omitempty"`
+
 	// The duration in seconds that the returned Kubernetes credentials will be valid. If not set or 0, the credentials will have a 7 day expiry.
 	KubeconfigExpireSeconds *float64 `json:"kubeconfigExpireSeconds,omitempty" tf:"kubeconfig_expire_seconds,omitempty"`
 
 	// A block representing the cluster's maintenance window. Updates will be applied within this window. If not specified, a default maintenance window will be chosen. auto_upgrade must be set to true for this to have an effect.
 	MaintenancePolicy []MaintenancePolicyObservation `json:"maintenancePolicy,omitempty" tf:"maintenance_policy,omitempty"`
+
+	// Block containing options for the NFS CSI driver plugin component. If not specified, the NFS CSI plugin will not be installed in the cluster.
+	NFSCsiPlugin []NFSCsiPluginObservation `json:"nfsCsiPlugin,omitempty" tf:"nfs_csi_plugin,omitempty"`
 
 	// A name for the Kubernetes cluster.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -223,9 +290,16 @@ type ClusterObservation struct {
 	// A block representing the cluster's default node pool. Additional node pools may be added to the cluster using the digitalocean_kubernetes_node_pool resource. The following arguments may be specified:
 	NodePool []NodePoolObservation `json:"nodePool,omitempty" tf:"node_pool,omitempty"`
 
-	// Block containing options for the NVIDIA GPU device plugin component. If not specified, the component will be enabled by default for clusters with NVIDIA GPU nodes.
+	// Block containing options for the NVIDIA GPU device plugin component. If not specified, the component will be enabled by default for clusters with NVIDIA GPU nodes. Mutually exclusive with nvidia_gpu_dra_driver.
 	NvidiaGpuDevicePlugin []NvidiaGpuDevicePluginObservation `json:"nvidiaGpuDevicePlugin,omitempty" tf:"nvidia_gpu_device_plugin,omitempty"`
 
+	// Block containing options for the NVIDIA GPU DRA driver component. Mutually exclusive with nvidia_gpu_device_plugin.
+	NvidiaGpuDraDriver []NvidiaGpuDraDriverObservation `json:"nvidiaGpuDraDriver,omitempty" tf:"nvidia_gpu_dra_driver,omitempty"`
+
+	// Block containing options for the Peer-to-peer OCI registry plugin component. If not specified, the p2p-oci-registry-plugin component will not be installed in the cluster.
+	P2POciRegistryPlugin []P2POciRegistryPluginObservation `json:"p2pOciRegistryPlugin,omitempty" tf:"p2p_oci_registry_plugin,omitempty"`
+
+	// Block containing options for the RDMA Shared Device Plugin (k8s-rdma-shared-dev-plugin) component. If not specified, the component will be enabled by default for clusters with GPU nodes connected to a dedicated high-speed networking fabric.
 	RdmaSharedDevicePlugin []RdmaSharedDevicePluginObservation `json:"rdmaSharedDevicePlugin,omitempty" tf:"rdma_shared_device_plugin,omitempty"`
 
 	// The slug identifier for the region where the Kubernetes cluster will be created.
@@ -239,6 +313,9 @@ type ClusterObservation struct {
 
 	// The range of assignable IP addresses for services running in the Kubernetes cluster. For more information, see here.
 	ServiceSubnet *string `json:"serviceSubnet,omitempty" tf:"service_subnet,omitempty"`
+
+	// Block containing Single Sign-On (SSO) configuration for the cluster using OpenID Connect (OIDC).
+	Sso []SsoObservation `json:"sso,omitempty" tf:"sso,omitempty"`
 
 	// A string indicating the current status of the cluster. Potential values include running, provisioning, and errored.
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
@@ -261,23 +338,30 @@ type ClusterObservation struct {
 
 	// The slug identifier for the version of Kubernetes used for the cluster. Use doctl to find the available versions doctl kubernetes options versions. (Note: A cluster may only be upgraded to newer versions in-place. If the version is decreased, a new resource will be created.)
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
+
+	// The ID of the VPC subnet for placing worker nodes. Must be a valid subnet in the cluster VPC. Requires that vpc_uuid is also set.
+	WorkerSubnetUUID *string `json:"workerSubnetUuid,omitempty" tf:"worker_subnet_uuid,omitempty"`
 }
 
 type ClusterParameters struct {
 
-	// Block containing options for the AMD GPU device metrics exporter component.
+	// Block containing options for the AMD GPU device metrics exporter component. If not specified, the component will not be installed in the cluster.
 	// +kubebuilder:validation:Optional
 	AmdGpuDeviceMetricsExporterPlugin []AmdGpuDeviceMetricsExporterPluginParameters `json:"amdGpuDeviceMetricsExporterPlugin,omitempty" tf:"amd_gpu_device_metrics_exporter_plugin,omitempty"`
 
-	// Block containing options for the AMD GPU device plugin component. If not specified, the component will be enabled by default for clusters with AMD GPU nodes.
+	// Block containing options for the AMD GPU device plugin component. If not specified, the component will be enabled by default for clusters with AMD GPU nodes. Mutually exclusive with amd_gpu_dra_driver.
 	// +kubebuilder:validation:Optional
 	AmdGpuDevicePlugin []AmdGpuDevicePluginParameters `json:"amdGpuDevicePlugin,omitempty" tf:"amd_gpu_device_plugin,omitempty"`
+
+	// Block containing options for the AMD GPU DRA driver component. Mutually exclusive with amd_gpu_device_plugin.
+	// +kubebuilder:validation:Optional
+	AmdGpuDraDriver []AmdGpuDraDriverParameters `json:"amdGpuDraDriver,omitempty" tf:"amd_gpu_dra_driver,omitempty"`
 
 	// A boolean value indicating whether the cluster will be automatically upgraded to new patch releases during its maintenance window.
 	// +kubebuilder:validation:Optional
 	AutoUpgrade *bool `json:"autoUpgrade,omitempty" tf:"auto_upgrade,omitempty"`
 
-	// Block containing options for cluster auto-scaling.
+	// Block containing options for cluster auto-scaling. For more information.
 	// +kubebuilder:validation:Optional
 	ClusterAutoscalerConfiguration []ClusterAutoscalerConfigurationParameters `json:"clusterAutoscalerConfiguration,omitempty" tf:"cluster_autoscaler_configuration,omitempty"`
 
@@ -289,13 +373,25 @@ type ClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	ControlPlaneFirewall []ControlPlaneFirewallParameters `json:"controlPlaneFirewall,omitempty" tf:"control_plane_firewall,omitempty"`
 
+	// Block containing options for the CoreDNS Autoscaler component, which scales CoreDNS replicas in proportion to the cluster's size. Default: true (for 1.36.0 and later)
+	// +kubebuilder:validation:Optional
+	CorednsAutoscaler []CorednsAutoscalerParameters `json:"corednsAutoscaler,omitempty" tf:"coredns_autoscaler,omitempty"`
+
 	// Use with caution. When set to true, all associated DigitalOcean resources created via the Kubernetes API (load balancers, volumes, and volume snapshots) will be destroyed along with the cluster when it is destroyed.
 	// +kubebuilder:validation:Optional
 	DestroyAllAssociatedResources *bool `json:"destroyAllAssociatedResources,omitempty" tf:"destroy_all_associated_resources,omitempty"`
 
-	// Enable/disable the high availability control plane for a cluster. Once enabled for a cluster, high availability cannot be disabled. Default: false
+	// Enable/disable launching GPU nodes in the cluster with images without GPU drivers, allowing GPU operators to manage drivers. Mutually exclusive with other GPU-related cluster options, such as nvidia_gpu_dra_driver and amd_gpu_dra_driver. Default: false
+	// +kubebuilder:validation:Optional
+	GpuOperatorReady *bool `json:"gpuOperatorReady,omitempty" tf:"gpu_operator_ready,omitempty"`
+
+	// Enable/disable the high availability control plane for a cluster. Once enabled for a cluster, high availability cannot be disabled. Default: true (for 1.36.0 and later)
 	// +kubebuilder:validation:Optional
 	Ha *bool `json:"ha,omitempty" tf:"ha,omitempty"`
+
+	// Enable/disable isolated worker nodes for the cluster. When enabled, each worker node runs on dedicated hardware. This can only be set at creation time. The cluster's VPC must have a NAT gateway attached. Default: false
+	// +kubebuilder:validation:Optional
+	IsolatedWorkers *bool `json:"isolatedWorkers,omitempty" tf:"isolated_workers,omitempty"`
 
 	// The duration in seconds that the returned Kubernetes credentials will be valid. If not set or 0, the credentials will have a 7 day expiry.
 	// +kubebuilder:validation:Optional
@@ -305,6 +401,10 @@ type ClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	MaintenancePolicy []MaintenancePolicyParameters `json:"maintenancePolicy,omitempty" tf:"maintenance_policy,omitempty"`
 
+	// Block containing options for the NFS CSI driver plugin component. If not specified, the NFS CSI plugin will not be installed in the cluster.
+	// +kubebuilder:validation:Optional
+	NFSCsiPlugin []NFSCsiPluginParameters `json:"nfsCsiPlugin,omitempty" tf:"nfs_csi_plugin,omitempty"`
+
 	// A name for the Kubernetes cluster.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -313,10 +413,19 @@ type ClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	NodePool []NodePoolParameters `json:"nodePool,omitempty" tf:"node_pool,omitempty"`
 
-	// Block containing options for the NVIDIA GPU device plugin component. If not specified, the component will be enabled by default for clusters with NVIDIA GPU nodes.
+	// Block containing options for the NVIDIA GPU device plugin component. If not specified, the component will be enabled by default for clusters with NVIDIA GPU nodes. Mutually exclusive with nvidia_gpu_dra_driver.
 	// +kubebuilder:validation:Optional
 	NvidiaGpuDevicePlugin []NvidiaGpuDevicePluginParameters `json:"nvidiaGpuDevicePlugin,omitempty" tf:"nvidia_gpu_device_plugin,omitempty"`
 
+	// Block containing options for the NVIDIA GPU DRA driver component. Mutually exclusive with nvidia_gpu_device_plugin.
+	// +kubebuilder:validation:Optional
+	NvidiaGpuDraDriver []NvidiaGpuDraDriverParameters `json:"nvidiaGpuDraDriver,omitempty" tf:"nvidia_gpu_dra_driver,omitempty"`
+
+	// Block containing options for the Peer-to-peer OCI registry plugin component. If not specified, the p2p-oci-registry-plugin component will not be installed in the cluster.
+	// +kubebuilder:validation:Optional
+	P2POciRegistryPlugin []P2POciRegistryPluginParameters `json:"p2pOciRegistryPlugin,omitempty" tf:"p2p_oci_registry_plugin,omitempty"`
+
+	// Block containing options for the RDMA Shared Device Plugin (k8s-rdma-shared-dev-plugin) component. If not specified, the component will be enabled by default for clusters with GPU nodes connected to a dedicated high-speed networking fabric.
 	// +kubebuilder:validation:Optional
 	RdmaSharedDevicePlugin []RdmaSharedDevicePluginParameters `json:"rdmaSharedDevicePlugin,omitempty" tf:"rdma_shared_device_plugin,omitempty"`
 
@@ -335,6 +444,10 @@ type ClusterParameters struct {
 	// The range of assignable IP addresses for services running in the Kubernetes cluster. For more information, see here.
 	// +kubebuilder:validation:Optional
 	ServiceSubnet *string `json:"serviceSubnet,omitempty" tf:"service_subnet,omitempty"`
+
+	// Block containing Single Sign-On (SSO) configuration for the cluster using OpenID Connect (OIDC).
+	// +kubebuilder:validation:Optional
+	Sso []SsoParameters `json:"sso,omitempty" tf:"sso,omitempty"`
 
 	// Enable/disable surge upgrades for a cluster. Default: true
 	// +kubebuilder:validation:Optional
@@ -370,6 +483,10 @@ type ClusterParameters struct {
 	// The slug identifier for the version of Kubernetes used for the cluster. Use doctl to find the available versions doctl kubernetes options versions. (Note: A cluster may only be upgraded to newer versions in-place. If the version is decreased, a new resource will be created.)
 	// +kubebuilder:validation:Optional
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
+
+	// The ID of the VPC subnet for placing worker nodes. Must be a valid subnet in the cluster VPC. Requires that vpc_uuid is also set.
+	// +kubebuilder:validation:Optional
+	WorkerSubnetUUID *string `json:"workerSubnetUuid,omitempty" tf:"worker_subnet_uuid,omitempty"`
 }
 
 type ControlPlaneFirewallInitParameters struct {
@@ -395,6 +512,25 @@ type ControlPlaneFirewallParameters struct {
 	// A list of addresses allowed (CIDR notation).
 	// +kubebuilder:validation:Optional
 	AllowedAddresses []*string `json:"allowedAddresses" tf:"allowed_addresses,omitempty"`
+
+	// Boolean flag whether the firewall should be enabled or not.
+	// +kubebuilder:validation:Optional
+	Enabled *bool `json:"enabled" tf:"enabled,omitempty"`
+}
+
+type CorednsAutoscalerInitParameters struct {
+
+	// Boolean flag whether the firewall should be enabled or not.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+}
+
+type CorednsAutoscalerObservation struct {
+
+	// Boolean flag whether the firewall should be enabled or not.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+}
+
+type CorednsAutoscalerParameters struct {
 
 	// Boolean flag whether the firewall should be enabled or not.
 	// +kubebuilder:validation:Optional
@@ -463,10 +599,32 @@ type MaintenancePolicyParameters struct {
 	StartTime *string `json:"startTime,omitempty" tf:"start_time,omitempty"`
 }
 
+type NFSCsiPluginInitParameters struct {
+
+	// Boolean flag whether the firewall should be enabled or not.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+}
+
+type NFSCsiPluginObservation struct {
+
+	// Boolean flag whether the firewall should be enabled or not.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+}
+
+type NFSCsiPluginParameters struct {
+
+	// Boolean flag whether the firewall should be enabled or not.
+	// +kubebuilder:validation:Optional
+	Enabled *bool `json:"enabled" tf:"enabled,omitempty"`
+}
+
 type NodePoolInitParameters struct {
 
 	// Enable auto-scaling of the number of nodes in the node pool within the given min/max range.
 	AutoScale *bool `json:"autoScale,omitempty" tf:"auto_scale,omitempty"`
+
+	// The AMD GPU partition mode to use for nodes in this pool. Valid values are AMD_PARTITION_MODE_SPX_NPS1 and AMD_PARTITION_MODE_DPX_NPS2. This can only be set when the pool is created.
+	GpuPartitionMode *string `json:"gpuPartitionMode,omitempty" tf:"gpu_partition_mode,omitempty"`
 
 	// A map of key/value pairs to apply to nodes in the pool. The labels are exposed in the Kubernetes API as labels in the metadata of the corresponding Node resources.
 	// +mapType=granular
@@ -502,6 +660,9 @@ type NodePoolObservation struct {
 
 	// Enable auto-scaling of the number of nodes in the node pool within the given min/max range.
 	AutoScale *bool `json:"autoScale,omitempty" tf:"auto_scale,omitempty"`
+
+	// The AMD GPU partition mode to use for nodes in this pool. Valid values are AMD_PARTITION_MODE_SPX_NPS1 and AMD_PARTITION_MODE_DPX_NPS2. This can only be set when the pool is created.
+	GpuPartitionMode *string `json:"gpuPartitionMode,omitempty" tf:"gpu_partition_mode,omitempty"`
 
 	// A unique ID that can be used to identify and reference a Kubernetes cluster.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -541,6 +702,10 @@ type NodePoolParameters struct {
 	// Enable auto-scaling of the number of nodes in the node pool within the given min/max range.
 	// +kubebuilder:validation:Optional
 	AutoScale *bool `json:"autoScale,omitempty" tf:"auto_scale,omitempty"`
+
+	// The AMD GPU partition mode to use for nodes in this pool. Valid values are AMD_PARTITION_MODE_SPX_NPS1 and AMD_PARTITION_MODE_DPX_NPS2. This can only be set when the pool is created.
+	// +kubebuilder:validation:Optional
+	GpuPartitionMode *string `json:"gpuPartitionMode,omitempty" tf:"gpu_partition_mode,omitempty"`
 
 	// A map of key/value pairs to apply to nodes in the pool. The labels are exposed in the Kubernetes API as labels in the metadata of the corresponding Node resources.
 	// +kubebuilder:validation:Optional
@@ -623,6 +788,44 @@ type NvidiaGpuDevicePluginParameters struct {
 	Enabled *bool `json:"enabled" tf:"enabled,omitempty"`
 }
 
+type NvidiaGpuDraDriverInitParameters struct {
+
+	// Boolean flag whether the firewall should be enabled or not.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+}
+
+type NvidiaGpuDraDriverObservation struct {
+
+	// Boolean flag whether the firewall should be enabled or not.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+}
+
+type NvidiaGpuDraDriverParameters struct {
+
+	// Boolean flag whether the firewall should be enabled or not.
+	// +kubebuilder:validation:Optional
+	Enabled *bool `json:"enabled" tf:"enabled,omitempty"`
+}
+
+type P2POciRegistryPluginInitParameters struct {
+
+	// Boolean flag whether the firewall should be enabled or not.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+}
+
+type P2POciRegistryPluginObservation struct {
+
+	// Boolean flag whether the firewall should be enabled or not.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+}
+
+type P2POciRegistryPluginParameters struct {
+
+	// Boolean flag whether the firewall should be enabled or not.
+	// +kubebuilder:validation:Optional
+	Enabled *bool `json:"enabled" tf:"enabled,omitempty"`
+}
+
 type RdmaSharedDevicePluginInitParameters struct {
 
 	// Boolean flag whether the firewall should be enabled or not.
@@ -659,6 +862,55 @@ type RoutingAgentParameters struct {
 	// Boolean flag whether the firewall should be enabled or not.
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled" tf:"enabled,omitempty"`
+}
+
+type SsoInitParameters struct {
+
+	// The OIDC client ID for the cluster SSO configuration.
+	ClientID *string `json:"clientId,omitempty" tf:"client_id,omitempty"`
+
+	// Boolean flag whether the firewall should be enabled or not.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// The OIDC issuer URL for the cluster SSO configuration.
+	IssuerURL *string `json:"issuerUrl,omitempty" tf:"issuer_url,omitempty"`
+
+	// Boolean flag indicating whether SSO is required as the only authentication method for the cluster. Default: false
+	Required *bool `json:"required,omitempty" tf:"required,omitempty"`
+}
+
+type SsoObservation struct {
+
+	// The OIDC client ID for the cluster SSO configuration.
+	ClientID *string `json:"clientId,omitempty" tf:"client_id,omitempty"`
+
+	// Boolean flag whether the firewall should be enabled or not.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// The OIDC issuer URL for the cluster SSO configuration.
+	IssuerURL *string `json:"issuerUrl,omitempty" tf:"issuer_url,omitempty"`
+
+	// Boolean flag indicating whether SSO is required as the only authentication method for the cluster. Default: false
+	Required *bool `json:"required,omitempty" tf:"required,omitempty"`
+}
+
+type SsoParameters struct {
+
+	// The OIDC client ID for the cluster SSO configuration.
+	// +kubebuilder:validation:Optional
+	ClientID *string `json:"clientId,omitempty" tf:"client_id,omitempty"`
+
+	// Boolean flag whether the firewall should be enabled or not.
+	// +kubebuilder:validation:Optional
+	Enabled *bool `json:"enabled" tf:"enabled,omitempty"`
+
+	// The OIDC issuer URL for the cluster SSO configuration.
+	// +kubebuilder:validation:Optional
+	IssuerURL *string `json:"issuerUrl,omitempty" tf:"issuer_url,omitempty"`
+
+	// Boolean flag indicating whether SSO is required as the only authentication method for the cluster. Default: false
+	// +kubebuilder:validation:Optional
+	Required *bool `json:"required,omitempty" tf:"required,omitempty"`
 }
 
 type TaintInitParameters struct {

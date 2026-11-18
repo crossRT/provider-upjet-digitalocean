@@ -148,6 +148,11 @@ spec:
                             type: string
                         type: object
                     type: object
+                  gpuPartitionMode:
+                    description: The AMD GPU partition mode to use for nodes in this
+                      pool. Valid values are AMD_PARTITION_MODE_SPX_NPS1 and AMD_PARTITION_MODE_DPX_NPS2.
+                      This can only be set when the pool is created.
+                    type: string
                   labels:
                     additionalProperties:
                       type: string
@@ -392,6 +397,11 @@ spec:
                             type: string
                         type: object
                     type: object
+                  gpuPartitionMode:
+                    description: The AMD GPU partition mode to use for nodes in this
+                      pool. Valid values are AMD_PARTITION_MODE_SPX_NPS1 and AMD_PARTITION_MODE_DPX_NPS2.
+                      This can only be set when the pool is created.
+                    type: string
                   labels:
                     additionalProperties:
                       type: string
@@ -617,6 +627,11 @@ spec:
                   clusterId:
                     description: The ID of the Kubernetes cluster to which the node
                       pool is associated.
+                    type: string
+                  gpuPartitionMode:
+                    description: The AMD GPU partition mode to use for nodes in this
+                      pool. Valid values are AMD_PARTITION_MODE_SPX_NPS1 and AMD_PARTITION_MODE_DPX_NPS2.
+                      This can only be set when the pool is created.
                     type: string
                   id:
                     description: A unique ID that can be used to identify and reference

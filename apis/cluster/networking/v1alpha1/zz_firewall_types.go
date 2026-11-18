@@ -145,6 +145,10 @@ type FirewallParameters struct {
 
 type InboundRuleInitParameters struct {
 
+	// The action to take for traffic matching this rule.
+	// This may be one of "allow" or "deny". If not specified, defaults to "allow".
+	Action *string `json:"action,omitempty" tf:"action,omitempty"`
+
 	// The ports on which traffic will be allowed
 	// specified as a string containing a single port, a range (e.g. "8000-9000"),
 	// or "1-65535" to open all ports for a protocol. Required for when protocol is
@@ -194,6 +198,10 @@ type InboundRuleInitParameters struct {
 
 type InboundRuleObservation struct {
 
+	// The action to take for traffic matching this rule.
+	// This may be one of "allow" or "deny". If not specified, defaults to "allow".
+	Action *string `json:"action,omitempty" tf:"action,omitempty"`
+
 	// The ports on which traffic will be allowed
 	// specified as a string containing a single port, a range (e.g. "8000-9000"),
 	// or "1-65535" to open all ports for a protocol. Required for when protocol is
@@ -233,6 +241,11 @@ type InboundRuleObservation struct {
 }
 
 type InboundRuleParameters struct {
+
+	// The action to take for traffic matching this rule.
+	// This may be one of "allow" or "deny". If not specified, defaults to "allow".
+	// +kubebuilder:validation:Optional
+	Action *string `json:"action,omitempty" tf:"action,omitempty"`
 
 	// The ports on which traffic will be allowed
 	// specified as a string containing a single port, a range (e.g. "8000-9000"),
@@ -290,6 +303,10 @@ type InboundRuleParameters struct {
 
 type OutboundRuleInitParameters struct {
 
+	// The action to take for traffic matching this rule.
+	// This may be one of "allow" or "deny". If not specified, defaults to "allow".
+	Action *string `json:"action,omitempty" tf:"action,omitempty"`
+
 	// An array of strings containing the IPv4
 	// addresses, IPv6 addresses, IPv4 CIDRs, and/or IPv6 CIDRs to which the
 	// outbound traffic will be allowed.
@@ -339,6 +356,10 @@ type OutboundRuleInitParameters struct {
 
 type OutboundRuleObservation struct {
 
+	// The action to take for traffic matching this rule.
+	// This may be one of "allow" or "deny". If not specified, defaults to "allow".
+	Action *string `json:"action,omitempty" tf:"action,omitempty"`
+
 	// An array of strings containing the IPv4
 	// addresses, IPv6 addresses, IPv4 CIDRs, and/or IPv6 CIDRs to which the
 	// outbound traffic will be allowed.
@@ -378,6 +399,11 @@ type OutboundRuleObservation struct {
 }
 
 type OutboundRuleParameters struct {
+
+	// The action to take for traffic matching this rule.
+	// This may be one of "allow" or "deny". If not specified, defaults to "allow".
+	// +kubebuilder:validation:Optional
+	Action *string `json:"action,omitempty" tf:"action,omitempty"`
 
 	// An array of strings containing the IPv4
 	// addresses, IPv6 addresses, IPv4 CIDRs, and/or IPv6 CIDRs to which the

@@ -430,6 +430,10 @@ type LoadbalancerInitParameters struct {
 	// Load Balancer. The healthcheck block is documented below. Only 1 healthcheck is allowed.
 	Healthcheck []HealthcheckInitParameters `json:"healthcheck,omitempty" tf:"healthcheck,omitempty"`
 
+	// The ip of the Load Balancer
+	// Optional BYOIP address to assign on create. Must be an unassigned BYOIP on the account in the same region. When omitted, a system-allocated floating IP is provisioned.
+	IP *string `json:"ip,omitempty" tf:"ip,omitempty"`
+
 	// The Load Balancer name
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -470,6 +474,9 @@ type LoadbalancerInitParameters struct {
 	// A sticky_sessions block to be assigned to the
 	// Load Balancer. The sticky_sessions block is documented below. Only 1 sticky_sessions block is allowed.
 	StickySessions []StickySessionsInitParameters `json:"stickySessions,omitempty" tf:"sticky_sessions,omitempty"`
+
+	// The ID of the VPC subnet where the load balancer will be located. Must be a valid subnet in the specified VPC. Requires that vpc_uuid is also set.
+	SubnetUUID *string `json:"subnetUuid,omitempty" tf:"subnet_uuid,omitempty"`
 
 	// The tls cipher policy controls the cipher suites to be used by the load balancer. It must be either of DEFAULT or STRONG. Defaults to DEFAULT.
 	// The tls cipher policy to be used for the load balancer. Enum: 'DEFAULT' 'STRONG'
@@ -547,6 +554,7 @@ type LoadbalancerObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// The ip of the Load Balancer
+	// Optional BYOIP address to assign on create. Must be an unassigned BYOIP on the account in the same region. When omitted, a system-allocated floating IP is provisioned.
 	IP *string `json:"ip,omitempty" tf:"ip,omitempty"`
 
 	IPv6 *string `json:"ipv6,omitempty" tf:"ipv6,omitempty"`
@@ -584,6 +592,9 @@ type LoadbalancerObservation struct {
 	// A sticky_sessions block to be assigned to the
 	// Load Balancer. The sticky_sessions block is documented below. Only 1 sticky_sessions block is allowed.
 	StickySessions []StickySessionsObservation `json:"stickySessions,omitempty" tf:"sticky_sessions,omitempty"`
+
+	// The ID of the VPC subnet where the load balancer will be located. Must be a valid subnet in the specified VPC. Requires that vpc_uuid is also set.
+	SubnetUUID *string `json:"subnetUuid,omitempty" tf:"subnet_uuid,omitempty"`
 
 	// The tls cipher policy controls the cipher suites to be used by the load balancer. It must be either of DEFAULT or STRONG. Defaults to DEFAULT.
 	// The tls cipher policy to be used for the load balancer. Enum: 'DEFAULT' 'STRONG'
@@ -673,6 +684,11 @@ type LoadbalancerParameters struct {
 	// +kubebuilder:validation:Optional
 	Healthcheck []HealthcheckParameters `json:"healthcheck,omitempty" tf:"healthcheck,omitempty"`
 
+	// The ip of the Load Balancer
+	// Optional BYOIP address to assign on create. Must be an unassigned BYOIP on the account in the same region. When omitted, a system-allocated floating IP is provisioned.
+	// +kubebuilder:validation:Optional
+	IP *string `json:"ip,omitempty" tf:"ip,omitempty"`
+
 	// The Load Balancer name
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -722,6 +738,10 @@ type LoadbalancerParameters struct {
 	// Load Balancer. The sticky_sessions block is documented below. Only 1 sticky_sessions block is allowed.
 	// +kubebuilder:validation:Optional
 	StickySessions []StickySessionsParameters `json:"stickySessions,omitempty" tf:"sticky_sessions,omitempty"`
+
+	// The ID of the VPC subnet where the load balancer will be located. Must be a valid subnet in the specified VPC. Requires that vpc_uuid is also set.
+	// +kubebuilder:validation:Optional
+	SubnetUUID *string `json:"subnetUuid,omitempty" tf:"subnet_uuid,omitempty"`
 
 	// The tls cipher policy controls the cipher suites to be used by the load balancer. It must be either of DEFAULT or STRONG. Defaults to DEFAULT.
 	// The tls cipher policy to be used for the load balancer. Enum: 'DEFAULT' 'STRONG'

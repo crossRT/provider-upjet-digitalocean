@@ -59,6 +59,7 @@ spec:
               forProvider:
                 properties:
                   region:
+                    description: The region of the NFS share.
                     type: string
                   shareId:
                     description: The ID of the NFS share to attach.
@@ -144,7 +145,7 @@ spec:
                         type: object
                     type: object
                   vpcId:
-                    description: The ID of the vpc to attach the NFS share to.
+                    description: The ID of the VPC to attach the NFS share to.
                     type: string
                   vpcIdRef:
                     description: Reference to a VPC in vpc to populate vpcId.
@@ -241,6 +242,7 @@ spec:
                   autoscaler.
                 properties:
                   region:
+                    description: The region of the NFS share.
                     type: string
                   shareId:
                     description: The ID of the NFS share to attach.
@@ -326,7 +328,7 @@ spec:
                         type: object
                     type: object
                   vpcId:
-                    description: The ID of the vpc to attach the NFS share to.
+                    description: The ID of the VPC to attach the NFS share to.
                     type: string
                   vpcIdRef:
                     description: Reference to a VPC in vpc to populate vpcId.
@@ -481,12 +483,13 @@ spec:
                     description: The unique identifier for the NFS attachment.
                     type: string
                   region:
+                    description: The region of the NFS share.
                     type: string
                   shareId:
                     description: The ID of the NFS share to attach.
                     type: string
                   vpcId:
-                    description: The ID of the vpc to attach the NFS share to.
+                    description: The ID of the VPC to attach the NFS share to.
                     type: string
                 type: object
               conditions:

@@ -16,7 +16,7 @@ import (
 
 // GetTerraformResourceType returns Terraform resource type for this OpenAIAPIKey
 func (mg *OpenAIAPIKey) GetTerraformResourceType() string {
-	return "digitalocean_gradientai_openai_api_key"
+	return "digitalocean_agent_platform_openai_api_key"
 }
 
 // GetConnectionDetailsMapping for this OpenAIAPIKey

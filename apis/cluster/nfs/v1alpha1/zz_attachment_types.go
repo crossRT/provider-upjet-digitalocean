@@ -14,6 +14,8 @@ import (
 )
 
 type AttachmentInitParameters struct {
+
+	// The region of the NFS share.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// The ID of the NFS share to attach.
@@ -28,7 +30,7 @@ type AttachmentInitParameters struct {
 	// +kubebuilder:validation:Optional
 	ShareIDSelector *v1.Selector `json:"shareIdSelector,omitempty" tf:"-"`
 
-	// The ID of the vpc to attach the NFS share to.
+	// The ID of the VPC to attach the NFS share to.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-digitalocean/apis/cluster/vpc/v1alpha1.VPC
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 
@@ -46,17 +48,19 @@ type AttachmentObservation struct {
 	// The unique identifier for the NFS attachment.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// The region of the NFS share.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// The ID of the NFS share to attach.
 	ShareID *string `json:"shareId,omitempty" tf:"share_id,omitempty"`
 
-	// The ID of the vpc to attach the NFS share to.
+	// The ID of the VPC to attach the NFS share to.
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 }
 
 type AttachmentParameters struct {
 
+	// The region of the NFS share.
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
@@ -73,7 +77,7 @@ type AttachmentParameters struct {
 	// +kubebuilder:validation:Optional
 	ShareIDSelector *v1.Selector `json:"shareIdSelector,omitempty" tf:"-"`
 
-	// The ID of the vpc to attach the NFS share to.
+	// The ID of the VPC to attach the NFS share to.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-digitalocean/apis/cluster/vpc/v1alpha1.VPC
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`

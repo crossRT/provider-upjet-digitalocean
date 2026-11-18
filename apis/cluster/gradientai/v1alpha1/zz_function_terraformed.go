@@ -16,7 +16,7 @@ import (
 
 // GetTerraformResourceType returns Terraform resource type for this Function
 func (mg *Function) GetTerraformResourceType() string {
-	return "digitalocean_gradientai_function"
+	return "digitalocean_agent_platform_function"
 }
 
 // GetConnectionDetailsMapping for this Function

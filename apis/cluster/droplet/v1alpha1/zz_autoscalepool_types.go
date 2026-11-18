@@ -200,6 +200,10 @@ type DropletTemplateInitParameters struct {
 	// Droplet project ID
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 
+	// A boolean indicating whether to enables public networking for the Droplet or not. By default, this is always enabled on new droplets. But, by explicitly setting it to false, you can create a droplet with public networking entirely disabled.
+	// Enables public networking for the Droplet. By default, this is always enabled on new Droplets, but by explicitly setting it to false, you can create a Droplet with public networking entirely disabled.
+	PublicNetworking *bool `json:"publicNetworking,omitempty" tf:"public_networking,omitempty"`
+
 	// Region slug of the Droplet Autoscale pool underlying resource(s).
 	// Droplet region
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
@@ -247,6 +251,10 @@ type DropletTemplateObservation struct {
 	// Project UUID to create the Droplet Autoscale pool underlying resource(s).
 	// Droplet project ID
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+
+	// A boolean indicating whether to enables public networking for the Droplet or not. By default, this is always enabled on new droplets. But, by explicitly setting it to false, you can create a droplet with public networking entirely disabled.
+	// Enables public networking for the Droplet. By default, this is always enabled on new Droplets, but by explicitly setting it to false, you can create a Droplet with public networking entirely disabled.
+	PublicNetworking *bool `json:"publicNetworking,omitempty" tf:"public_networking,omitempty"`
 
 	// Region slug of the Droplet Autoscale pool underlying resource(s).
 	// Droplet region
@@ -298,6 +306,11 @@ type DropletTemplateParameters struct {
 	// Droplet project ID
 	// +kubebuilder:validation:Optional
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+
+	// A boolean indicating whether to enables public networking for the Droplet or not. By default, this is always enabled on new droplets. But, by explicitly setting it to false, you can create a droplet with public networking entirely disabled.
+	// Enables public networking for the Droplet. By default, this is always enabled on new Droplets, but by explicitly setting it to false, you can create a Droplet with public networking entirely disabled.
+	// +kubebuilder:validation:Optional
+	PublicNetworking *bool `json:"publicNetworking,omitempty" tf:"public_networking,omitempty"`
 
 	// Region slug of the Droplet Autoscale pool underlying resource(s).
 	// Droplet region

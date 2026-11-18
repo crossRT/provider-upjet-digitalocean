@@ -16,7 +16,7 @@ import (
 
 // GetTerraformResourceType returns Terraform resource type for this IndexingJobCancel
 func (mg *IndexingJobCancel) GetTerraformResourceType() string {
-	return "digitalocean_gradientai_indexing_job_cancel"
+	return "digitalocean_agent_platform_indexing_job_cancel"
 }
 
 // GetConnectionDetailsMapping for this IndexingJobCancel

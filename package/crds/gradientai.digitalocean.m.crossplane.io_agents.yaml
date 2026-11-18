@@ -297,7 +297,9 @@ spec:
                           description: Name of the Agent
                           type: string
                         projectId:
-                          description: Project ID of the Agent
+                          description: |-
+                            , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
+                            Project ID of the Agent
                           type: string
                         region:
                           description: Region where the Agent is deployed
@@ -390,7 +392,9 @@ spec:
                     items:
                       properties:
                         databaseId:
-                          description: Database ID of the Knowledge Base
+                          description: |-
+                            , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
+                            Database ID of the Knowledge Base
                           type: string
                         embeddingModelUuid:
                           description: |-
@@ -436,7 +440,9 @@ spec:
                           description: Name of the Knowledge Base
                           type: string
                         projectId:
-                          description: Project ID of the Knowledge Base
+                          description: |-
+                            , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
+                            Project ID of the Knowledge Base
                           type: string
                         region:
                           description: Region of the Knowledge Base
@@ -447,7 +453,9 @@ spec:
                             type: string
                           type: array
                         userId:
-                          description: User ID of the Knowledge Base
+                          description: |-
+                            , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
+                            User ID of the Knowledge Base
                           type: string
                       type: object
                     type: array
@@ -757,7 +765,9 @@ spec:
                           description: Name of the Agent
                           type: string
                         projectId:
-                          description: Project ID of the Agent
+                          description: |-
+                            , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
+                            Project ID of the Agent
                           type: string
                         region:
                           description: Region where the Agent is deployed
@@ -765,7 +775,9 @@ spec:
                       type: object
                     type: array
                   projectId:
-                    description: Project ID of the Agent
+                    description: |-
+                      , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
+                      Project ID of the Agent
                     type: string
                   projectIdRef:
                     description: Reference to a Project in project to populate projectId.
@@ -894,7 +906,9 @@ spec:
                           items:
                             properties:
                               databaseId:
-                                description: Database ID of the Knowledge Base
+                                description: |-
+                                  , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
+                                  Database ID of the Knowledge Base
                                 type: string
                               embeddingModelUuid:
                                 description: |-
@@ -940,7 +954,9 @@ spec:
                                 description: Name of the Knowledge Base
                                 type: string
                               projectId:
-                                description: Project ID of the Knowledge Base
+                                description: |-
+                                  , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
+                                  Project ID of the Knowledge Base
                                 type: string
                               region:
                                 description: Region of the Knowledge Base
@@ -951,7 +967,9 @@ spec:
                                   type: string
                                 type: array
                               userId:
-                                description: User ID of the Knowledge Base
+                                description: |-
+                                  , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
+                                  User ID of the Knowledge Base
                                 type: string
                             type: object
                           type: array
@@ -1053,7 +1071,14 @@ spec:
                     description: URL for the Agent
                     type: string
                   userId:
-                    description: User ID linked with the Agent
+                    description: |-
+                      , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
+                      User ID linked with the Agent
+                    type: string
+                  workspaceUuid:
+                    description: |-
+                      ).
+                      Identifier for the workspace
                     type: string
                 type: object
               initProvider:
@@ -1308,7 +1333,9 @@ spec:
                           description: Name of the Agent
                           type: string
                         projectId:
-                          description: Project ID of the Agent
+                          description: |-
+                            , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
+                            Project ID of the Agent
                           type: string
                         region:
                           description: Region where the Agent is deployed
@@ -1401,7 +1428,9 @@ spec:
                     items:
                       properties:
                         databaseId:
-                          description: Database ID of the Knowledge Base
+                          description: |-
+                            , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
+                            Database ID of the Knowledge Base
                           type: string
                         embeddingModelUuid:
                           description: |-
@@ -1447,7 +1476,9 @@ spec:
                           description: Name of the Knowledge Base
                           type: string
                         projectId:
-                          description: Project ID of the Knowledge Base
+                          description: |-
+                            , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
+                            Project ID of the Knowledge Base
                           type: string
                         region:
                           description: Region of the Knowledge Base
@@ -1458,7 +1489,9 @@ spec:
                             type: string
                           type: array
                         userId:
-                          description: User ID of the Knowledge Base
+                          description: |-
+                            , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
+                            User ID of the Knowledge Base
                           type: string
                       type: object
                     type: array
@@ -1768,7 +1801,9 @@ spec:
                           description: Name of the Agent
                           type: string
                         projectId:
-                          description: Project ID of the Agent
+                          description: |-
+                            , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
+                            Project ID of the Agent
                           type: string
                         region:
                           description: Region where the Agent is deployed
@@ -1776,7 +1811,9 @@ spec:
                       type: object
                     type: array
                   projectId:
-                    description: Project ID of the Agent
+                    description: |-
+                      , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
+                      Project ID of the Agent
                     type: string
                   projectIdRef:
                     description: Reference to a Project in project to populate projectId.
@@ -1905,7 +1942,9 @@ spec:
                           items:
                             properties:
                               databaseId:
-                                description: Database ID of the Knowledge Base
+                                description: |-
+                                  , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
+                                  Database ID of the Knowledge Base
                                 type: string
                               embeddingModelUuid:
                                 description: |-
@@ -1951,7 +1990,9 @@ spec:
                                 description: Name of the Knowledge Base
                                 type: string
                               projectId:
-                                description: Project ID of the Knowledge Base
+                                description: |-
+                                  , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
+                                  Project ID of the Knowledge Base
                                 type: string
                               region:
                                 description: Region of the Knowledge Base
@@ -1962,7 +2003,9 @@ spec:
                                   type: string
                                 type: array
                               userId:
-                                description: User ID of the Knowledge Base
+                                description: |-
+                                  , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
+                                  User ID of the Knowledge Base
                                 type: string
                             type: object
                           type: array
@@ -2064,7 +2107,14 @@ spec:
                     description: URL for the Agent
                     type: string
                   userId:
-                    description: User ID linked with the Agent
+                    description: |-
+                      , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
+                      User ID linked with the Agent
+                    type: string
+                  workspaceUuid:
+                    description: |-
+                      ).
+                      Identifier for the workspace
                     type: string
                 type: object
               managementPolicies:
@@ -2291,6 +2341,8 @@ spec:
                     items:
                       properties:
                         chatbotId:
+                          description: ', name, region_slug, state, created_at, updated_at,
+                            and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.'
                           type: string
                       type: object
                     type: array
@@ -2299,7 +2351,9 @@ spec:
                     items:
                       properties:
                         agentId:
-                          description: ID of the child agent
+                          description: |-
+                            , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
+                            ID of the child agent
                           type: string
                         anthropicApiKey:
                           description: Anthropic API Key information
@@ -2391,6 +2445,9 @@ spec:
                           items:
                             properties:
                               chatbotId:
+                                description: ', name, region_slug, state, created_at,
+                                  updated_at, and an endpoints block with public_endpoint_fqdn
+                                  and private_endpoint_fqdn.'
                                 type: string
                             type: object
                           type: array
@@ -2440,7 +2497,9 @@ spec:
                           description: Name of the Agent
                           type: string
                         projectId:
-                          description: Project ID of the Agent
+                          description: |-
+                            , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
+                            Project ID of the Agent
                           type: string
                         region:
                           description: Region where the Agent is deployed
@@ -2525,6 +2584,8 @@ spec:
                       type: object
                     type: array
                   id:
+                    description: ', name, region_slug, state, created_at, updated_at,
+                      and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.'
                     type: string
                   ifCase:
                     description: If case condition
@@ -2554,7 +2615,9 @@ spec:
                           description: Created At timestamp for the Knowledge Base
                           type: string
                         databaseId:
-                          description: Database ID of the Knowledge Base
+                          description: |-
+                            , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
+                            Database ID of the Knowledge Base
                           type: string
                         embeddingModelUuid:
                           description: |-
@@ -2621,7 +2684,9 @@ spec:
                           description: Name of the Knowledge Base
                           type: string
                         projectId:
-                          description: Project ID of the Knowledge Base
+                          description: |-
+                            , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
+                            Project ID of the Knowledge Base
                           type: string
                         region:
                           description: Region of the Knowledge Base
@@ -2635,7 +2700,9 @@ spec:
                           description: Timestamp when the Knowledge Base was updated
                           type: string
                         userId:
-                          description: User ID of the Knowledge Base
+                          description: |-
+                            , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
+                            User ID of the Knowledge Base
                           type: string
                         uuid:
                           description: |-
@@ -2769,7 +2836,9 @@ spec:
                     items:
                       properties:
                         agentId:
-                          description: ID of the child agent
+                          description: |-
+                            , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
+                            ID of the child agent
                           type: string
                         anthropicApiKey:
                           description: Anthropic API Key information
@@ -2861,6 +2930,9 @@ spec:
                           items:
                             properties:
                               chatbotId:
+                                description: ', name, region_slug, state, created_at,
+                                  updated_at, and an endpoints block with public_endpoint_fqdn
+                                  and private_endpoint_fqdn.'
                                 type: string
                             type: object
                           type: array
@@ -2910,7 +2982,9 @@ spec:
                           description: Name of the Agent
                           type: string
                         projectId:
-                          description: Project ID of the Agent
+                          description: |-
+                            , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
+                            Project ID of the Agent
                           type: string
                         region:
                           description: Region where the Agent is deployed
@@ -2918,7 +2992,9 @@ spec:
                       type: object
                     type: array
                   projectId:
-                    description: Project ID of the Agent
+                    description: |-
+                      , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
+                      Project ID of the Agent
                     type: string
                   provideCitations:
                     description: Indicates if the agent should provide citations in
@@ -2981,7 +3057,9 @@ spec:
                                   Base
                                 type: string
                               databaseId:
-                                description: Database ID of the Knowledge Base
+                                description: |-
+                                  , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
+                                  Database ID of the Knowledge Base
                                 type: string
                               embeddingModelUuid:
                                 description: |-
@@ -3048,7 +3126,9 @@ spec:
                                 description: Name of the Knowledge Base
                                 type: string
                               projectId:
-                                description: Project ID of the Knowledge Base
+                                description: |-
+                                  , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
+                                  Project ID of the Knowledge Base
                                 type: string
                               region:
                                 description: Region of the Knowledge Base
@@ -3063,7 +3143,9 @@ spec:
                                   updated
                                 type: string
                               userId:
-                                description: User ID of the Knowledge Base
+                                description: |-
+                                  , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
+                                  User ID of the Knowledge Base
                                 type: string
                               uuid:
                                 description: |-
@@ -3184,7 +3266,14 @@ spec:
                     description: URL for the Agent
                     type: string
                   userId:
-                    description: User ID linked with the Agent
+                    description: |-
+                      , name, region_slug, state, created_at, updated_at, and an endpoints block with public_endpoint_fqdn and private_endpoint_fqdn.
+                      User ID linked with the Agent
+                    type: string
+                  workspaceUuid:
+                    description: |-
+                      ).
+                      Identifier for the workspace
                     type: string
                 type: object
               conditions:

@@ -59,7 +59,7 @@ spec:
               forProvider:
                 properties:
                   agentId:
-                    description: The name of the GradientAI resource.
+                    description: The name of the Agent Platform resource.
                     type: string
                   agentIdRef:
                     description: Reference to a Agent in gradientai to populate agentId.
@@ -142,23 +142,23 @@ spec:
                         type: object
                     type: object
                   description:
-                    description: The region where the GradientAI resource will be
-                      created.
+                    description: The region where the Agent Platform resource will
+                      be created.
                     type: string
                   faasName:
-                    description: The model to use for the GradientAI resource.
+                    description: The model to use for the Agent Platform resource.
                     type: string
                   faasNamespace:
-                    description: The current status of the GradientAI resource.
+                    description: The current status of the Agent Platform resource.
                     type: string
                   functionName:
-                    description: The creation timestamp of the GradientAI resource.
+                    description: The creation timestamp of the Agent Platform resource.
                     type: string
                   inputSchema:
-                    description: The input schema of the GradientAI resource.
+                    description: The input schema of the Agent Platform resource.
                     type: string
                   outputSchema:
-                    description: The output schema of the GradientAI resource.
+                    description: The output schema of the Agent Platform resource.
                     type: string
                 type: object
               initProvider:
@@ -175,7 +175,7 @@ spec:
                   autoscaler.
                 properties:
                   agentId:
-                    description: The name of the GradientAI resource.
+                    description: The name of the Agent Platform resource.
                     type: string
                   agentIdRef:
                     description: Reference to a Agent in gradientai to populate agentId.
@@ -258,23 +258,23 @@ spec:
                         type: object
                     type: object
                   description:
-                    description: The region where the GradientAI resource will be
-                      created.
+                    description: The region where the Agent Platform resource will
+                      be created.
                     type: string
                   faasName:
-                    description: The model to use for the GradientAI resource.
+                    description: The model to use for the Agent Platform resource.
                     type: string
                   faasNamespace:
-                    description: The current status of the GradientAI resource.
+                    description: The current status of the Agent Platform resource.
                     type: string
                   functionName:
-                    description: The creation timestamp of the GradientAI resource.
+                    description: The creation timestamp of the Agent Platform resource.
                     type: string
                   inputSchema:
-                    description: The input schema of the GradientAI resource.
+                    description: The input schema of the Agent Platform resource.
                     type: string
                   outputSchema:
-                    description: The output schema of the GradientAI resource.
+                    description: The output schema of the Agent Platform resource.
                     type: string
                 type: object
               managementPolicies:
@@ -358,31 +358,31 @@ spec:
               atProvider:
                 properties:
                   agentId:
-                    description: The name of the GradientAI resource.
+                    description: The name of the Agent Platform resource.
                     type: string
                   description:
-                    description: The region where the GradientAI resource will be
-                      created.
+                    description: The region where the Agent Platform resource will
+                      be created.
                     type: string
                   faasName:
-                    description: The model to use for the GradientAI resource.
+                    description: The model to use for the Agent Platform resource.
                     type: string
                   faasNamespace:
-                    description: The current status of the GradientAI resource.
+                    description: The current status of the Agent Platform resource.
                     type: string
                   functionName:
-                    description: The creation timestamp of the GradientAI resource.
+                    description: The creation timestamp of the Agent Platform resource.
                     type: string
                   functionUuid:
-                    description: The unique identifier of the GradientAI function.
+                    description: The unique identifier of the Agent Platform function.
                     type: string
                   id:
                     type: string
                   inputSchema:
-                    description: The input schema of the GradientAI resource.
+                    description: The input schema of the Agent Platform resource.
                     type: string
                   outputSchema:
-                    description: The output schema of the GradientAI resource.
+                    description: The output schema of the Agent Platform resource.
                     type: string
                 type: object
               conditions:

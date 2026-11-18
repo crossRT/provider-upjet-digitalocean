@@ -15,7 +15,7 @@ import (
 
 type FunctionInitParameters struct {
 
-	// The name of the GradientAI resource.
+	// The name of the Agent Platform resource.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-digitalocean/apis/cluster/gradientai/v1alpha1.Agent
 	AgentID *string `json:"agentId,omitempty" tf:"agent_id,omitempty"`
 
@@ -27,57 +27,57 @@ type FunctionInitParameters struct {
 	// +kubebuilder:validation:Optional
 	AgentIDSelector *v1.Selector `json:"agentIdSelector,omitempty" tf:"-"`
 
-	// The region where the GradientAI resource will be created.
+	// The region where the Agent Platform resource will be created.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// The model to use for the GradientAI resource.
+	// The model to use for the Agent Platform resource.
 	FaasName *string `json:"faasName,omitempty" tf:"faas_name,omitempty"`
 
-	// The current status of the GradientAI resource.
+	// The current status of the Agent Platform resource.
 	FaasNamespace *string `json:"faasNamespace,omitempty" tf:"faas_namespace,omitempty"`
 
-	// The creation timestamp of the GradientAI resource.
+	// The creation timestamp of the Agent Platform resource.
 	FunctionName *string `json:"functionName,omitempty" tf:"function_name,omitempty"`
 
-	// The input schema of the GradientAI resource.
+	// The input schema of the Agent Platform resource.
 	InputSchema *string `json:"inputSchema,omitempty" tf:"input_schema,omitempty"`
 
-	// The output schema of the GradientAI resource.
+	// The output schema of the Agent Platform resource.
 	OutputSchema *string `json:"outputSchema,omitempty" tf:"output_schema,omitempty"`
 }
 
 type FunctionObservation struct {
 
-	// The name of the GradientAI resource.
+	// The name of the Agent Platform resource.
 	AgentID *string `json:"agentId,omitempty" tf:"agent_id,omitempty"`
 
-	// The region where the GradientAI resource will be created.
+	// The region where the Agent Platform resource will be created.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// The model to use for the GradientAI resource.
+	// The model to use for the Agent Platform resource.
 	FaasName *string `json:"faasName,omitempty" tf:"faas_name,omitempty"`
 
-	// The current status of the GradientAI resource.
+	// The current status of the Agent Platform resource.
 	FaasNamespace *string `json:"faasNamespace,omitempty" tf:"faas_namespace,omitempty"`
 
-	// The creation timestamp of the GradientAI resource.
+	// The creation timestamp of the Agent Platform resource.
 	FunctionName *string `json:"functionName,omitempty" tf:"function_name,omitempty"`
 
-	// The unique identifier of the GradientAI function.
+	// The unique identifier of the Agent Platform function.
 	FunctionUUID *string `json:"functionUuid,omitempty" tf:"function_uuid,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// The input schema of the GradientAI resource.
+	// The input schema of the Agent Platform resource.
 	InputSchema *string `json:"inputSchema,omitempty" tf:"input_schema,omitempty"`
 
-	// The output schema of the GradientAI resource.
+	// The output schema of the Agent Platform resource.
 	OutputSchema *string `json:"outputSchema,omitempty" tf:"output_schema,omitempty"`
 }
 
 type FunctionParameters struct {
 
-	// The name of the GradientAI resource.
+	// The name of the Agent Platform resource.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-digitalocean/apis/cluster/gradientai/v1alpha1.Agent
 	// +kubebuilder:validation:Optional
 	AgentID *string `json:"agentId,omitempty" tf:"agent_id,omitempty"`
@@ -90,27 +90,27 @@ type FunctionParameters struct {
 	// +kubebuilder:validation:Optional
 	AgentIDSelector *v1.Selector `json:"agentIdSelector,omitempty" tf:"-"`
 
-	// The region where the GradientAI resource will be created.
+	// The region where the Agent Platform resource will be created.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// The model to use for the GradientAI resource.
+	// The model to use for the Agent Platform resource.
 	// +kubebuilder:validation:Optional
 	FaasName *string `json:"faasName,omitempty" tf:"faas_name,omitempty"`
 
-	// The current status of the GradientAI resource.
+	// The current status of the Agent Platform resource.
 	// +kubebuilder:validation:Optional
 	FaasNamespace *string `json:"faasNamespace,omitempty" tf:"faas_namespace,omitempty"`
 
-	// The creation timestamp of the GradientAI resource.
+	// The creation timestamp of the Agent Platform resource.
 	// +kubebuilder:validation:Optional
 	FunctionName *string `json:"functionName,omitempty" tf:"function_name,omitempty"`
 
-	// The input schema of the GradientAI resource.
+	// The input schema of the Agent Platform resource.
 	// +kubebuilder:validation:Optional
 	InputSchema *string `json:"inputSchema,omitempty" tf:"input_schema,omitempty"`
 
-	// The output schema of the GradientAI resource.
+	// The output schema of the Agent Platform resource.
 	// +kubebuilder:validation:Optional
 	OutputSchema *string `json:"outputSchema,omitempty" tf:"output_schema,omitempty"`
 }

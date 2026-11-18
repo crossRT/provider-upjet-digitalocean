@@ -563,6 +563,11 @@ func (in *DropletInitParameters) DeepCopyInto(out *DropletInitParameters) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.GpuPartitionMode != nil {
+		in, out := &in.GpuPartitionMode, &out.GpuPartitionMode
+		*out = new(string)
+		**out = **in
+	}
 	if in.GracefulShutdown != nil {
 		in, out := &in.GracefulShutdown, &out.GracefulShutdown
 		*out = new(bool)
@@ -605,6 +610,11 @@ func (in *DropletInitParameters) DeepCopyInto(out *DropletInitParameters) {
 	}
 	if in.PrivateNetworking != nil {
 		in, out := &in.PrivateNetworking, &out.PrivateNetworking
+		*out = new(bool)
+		**out = **in
+	}
+	if in.PublicNetworking != nil {
+		in, out := &in.PublicNetworking, &out.PublicNetworking
 		*out = new(bool)
 		**out = **in
 	}
@@ -774,6 +784,11 @@ func (in *DropletObservation) DeepCopyInto(out *DropletObservation) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.GpuPartitionMode != nil {
+		in, out := &in.GpuPartitionMode, &out.GpuPartitionMode
+		*out = new(string)
+		**out = **in
+	}
 	if in.GracefulShutdown != nil {
 		in, out := &in.GracefulShutdown, &out.GracefulShutdown
 		*out = new(bool)
@@ -841,6 +856,11 @@ func (in *DropletObservation) DeepCopyInto(out *DropletObservation) {
 	}
 	if in.PrivateNetworking != nil {
 		in, out := &in.PrivateNetworking, &out.PrivateNetworking
+		*out = new(bool)
+		**out = **in
+	}
+	if in.PublicNetworking != nil {
+		in, out := &in.PublicNetworking, &out.PublicNetworking
 		*out = new(bool)
 		**out = **in
 	}
@@ -949,6 +969,11 @@ func (in *DropletParameters) DeepCopyInto(out *DropletParameters) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.GpuPartitionMode != nil {
+		in, out := &in.GpuPartitionMode, &out.GpuPartitionMode
+		*out = new(string)
+		**out = **in
+	}
 	if in.GracefulShutdown != nil {
 		in, out := &in.GracefulShutdown, &out.GracefulShutdown
 		*out = new(bool)
@@ -991,6 +1016,11 @@ func (in *DropletParameters) DeepCopyInto(out *DropletParameters) {
 	}
 	if in.PrivateNetworking != nil {
 		in, out := &in.PrivateNetworking, &out.PrivateNetworking
+		*out = new(bool)
+		**out = **in
+	}
+	if in.PublicNetworking != nil {
+		in, out := &in.PublicNetworking, &out.PublicNetworking
 		*out = new(bool)
 		**out = **in
 	}
@@ -1151,6 +1181,11 @@ func (in *DropletTemplateInitParameters) DeepCopyInto(out *DropletTemplateInitPa
 		*out = new(string)
 		**out = **in
 	}
+	if in.PublicNetworking != nil {
+		in, out := &in.PublicNetworking, &out.PublicNetworking
+		*out = new(bool)
+		**out = **in
+	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)
@@ -1228,6 +1263,11 @@ func (in *DropletTemplateObservation) DeepCopyInto(out *DropletTemplateObservati
 		*out = new(string)
 		**out = **in
 	}
+	if in.PublicNetworking != nil {
+		in, out := &in.PublicNetworking, &out.PublicNetworking
+		*out = new(bool)
+		**out = **in
+	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)
@@ -1303,6 +1343,11 @@ func (in *DropletTemplateParameters) DeepCopyInto(out *DropletTemplateParameters
 	if in.ProjectID != nil {
 		in, out := &in.ProjectID, &out.ProjectID
 		*out = new(string)
+		**out = **in
+	}
+	if in.PublicNetworking != nil {
+		in, out := &in.PublicNetworking, &out.PublicNetworking
+		*out = new(bool)
 		**out = **in
 	}
 	if in.Region != nil {

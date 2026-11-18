@@ -16,7 +16,7 @@ import (
 
 // GetTerraformResourceType returns Terraform resource type for this KnowledgeBaseDataSource
 func (mg *KnowledgeBaseDataSource) GetTerraformResourceType() string {
-	return "digitalocean_gradientai_knowledge_base_data_source"
+	return "digitalocean_agent_platform_knowledge_base_data_source"
 }
 
 // GetConnectionDetailsMapping for this KnowledgeBaseDataSource

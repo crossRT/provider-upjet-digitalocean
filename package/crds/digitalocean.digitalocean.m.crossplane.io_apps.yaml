@@ -1788,6 +1788,49 @@ spec:
                                   type: number
                                 type: array
                                 x-kubernetes-list-type: set
+                              livenessHealthCheck:
+                                description: A liveness health check to determine
+                                  if the service should be restarted. Failing to respond
+                                  will result in the component being restarted.
+                                items:
+                                  properties:
+                                    failureThreshold:
+                                      description: |-
+                                        The number of failed health checks before considered unhealthy.
+                                        The number of failed health checks before considered unhealthy.
+                                      type: number
+                                    httpPath:
+                                      description: |-
+                                        The route path used for the HTTP health check ping.
+                                        The route path used for the HTTP health check ping.
+                                      type: string
+                                    initialDelaySeconds:
+                                      description: |-
+                                        The number of seconds to wait before beginning health checks.
+                                        The number of seconds to wait before beginning health checks.
+                                      type: number
+                                    periodSeconds:
+                                      description: |-
+                                        The number of seconds to wait between health checks.
+                                        The number of seconds to wait between health checks.
+                                      type: number
+                                    port:
+                                      description: |-
+                                        The port to redirect to.
+                                        The port on which the health check will be performed. If not set, the health check will be performed on the component's http_port.
+                                      type: number
+                                    successThreshold:
+                                      description: |-
+                                        The number of successful health checks before considered healthy.
+                                        The number of successful health checks before considered healthy.
+                                      type: number
+                                    timeoutSeconds:
+                                      description: |-
+                                        The number of seconds after which the check times out.
+                                        The number of seconds after which the check times out.
+                                      type: number
+                                  type: object
+                                type: array
                               logDestination:
                                 description: |-
                                   Describes a log forwarding destination.
@@ -2523,6 +2566,49 @@ spec:
                                   The instance size to use for this component. This determines the plan (basic or professional) and the available CPU and memory. The list of available instance sizes can be found with the API or using the doctl CLI (doctl apps tier instance-size list). Default: basic-xxs
                                   The instance size to use for this component.
                                 type: string
+                              livenessHealthCheck:
+                                description: A liveness health check to determine
+                                  if the service should be restarted. Failing to respond
+                                  will result in the component being restarted.
+                                items:
+                                  properties:
+                                    failureThreshold:
+                                      description: |-
+                                        The number of failed health checks before considered unhealthy.
+                                        The number of failed health checks before considered unhealthy.
+                                      type: number
+                                    httpPath:
+                                      description: |-
+                                        The route path used for the HTTP health check ping.
+                                        The route path used for the HTTP health check ping.
+                                      type: string
+                                    initialDelaySeconds:
+                                      description: |-
+                                        The number of seconds to wait before beginning health checks.
+                                        The number of seconds to wait before beginning health checks.
+                                      type: number
+                                    periodSeconds:
+                                      description: |-
+                                        The number of seconds to wait between health checks.
+                                        The number of seconds to wait between health checks.
+                                      type: number
+                                    port:
+                                      description: |-
+                                        The port to redirect to.
+                                        The port on which the health check will be performed. If not set, the health check will be performed on the component's http_port.
+                                      type: number
+                                    successThreshold:
+                                      description: |-
+                                        The number of successful health checks before considered healthy.
+                                        The number of successful health checks before considered healthy.
+                                      type: number
+                                    timeoutSeconds:
+                                      description: |-
+                                        The number of seconds after which the check times out.
+                                        The number of seconds after which the check times out.
+                                      type: number
+                                  type: object
+                                type: array
                               logDestination:
                                 description: |-
                                   Describes a log forwarding destination.
@@ -4402,6 +4488,49 @@ spec:
                                   type: number
                                 type: array
                                 x-kubernetes-list-type: set
+                              livenessHealthCheck:
+                                description: A liveness health check to determine
+                                  if the service should be restarted. Failing to respond
+                                  will result in the component being restarted.
+                                items:
+                                  properties:
+                                    failureThreshold:
+                                      description: |-
+                                        The number of failed health checks before considered unhealthy.
+                                        The number of failed health checks before considered unhealthy.
+                                      type: number
+                                    httpPath:
+                                      description: |-
+                                        The route path used for the HTTP health check ping.
+                                        The route path used for the HTTP health check ping.
+                                      type: string
+                                    initialDelaySeconds:
+                                      description: |-
+                                        The number of seconds to wait before beginning health checks.
+                                        The number of seconds to wait before beginning health checks.
+                                      type: number
+                                    periodSeconds:
+                                      description: |-
+                                        The number of seconds to wait between health checks.
+                                        The number of seconds to wait between health checks.
+                                      type: number
+                                    port:
+                                      description: |-
+                                        The port to redirect to.
+                                        The port on which the health check will be performed. If not set, the health check will be performed on the component's http_port.
+                                      type: number
+                                    successThreshold:
+                                      description: |-
+                                        The number of successful health checks before considered healthy.
+                                        The number of successful health checks before considered healthy.
+                                      type: number
+                                    timeoutSeconds:
+                                      description: |-
+                                        The number of seconds after which the check times out.
+                                        The number of seconds after which the check times out.
+                                      type: number
+                                  type: object
+                                type: array
                               logDestination:
                                 description: |-
                                   Describes a log forwarding destination.
@@ -5137,6 +5266,49 @@ spec:
                                   The instance size to use for this component. This determines the plan (basic or professional) and the available CPU and memory. The list of available instance sizes can be found with the API or using the doctl CLI (doctl apps tier instance-size list). Default: basic-xxs
                                   The instance size to use for this component.
                                 type: string
+                              livenessHealthCheck:
+                                description: A liveness health check to determine
+                                  if the service should be restarted. Failing to respond
+                                  will result in the component being restarted.
+                                items:
+                                  properties:
+                                    failureThreshold:
+                                      description: |-
+                                        The number of failed health checks before considered unhealthy.
+                                        The number of failed health checks before considered unhealthy.
+                                      type: number
+                                    httpPath:
+                                      description: |-
+                                        The route path used for the HTTP health check ping.
+                                        The route path used for the HTTP health check ping.
+                                      type: string
+                                    initialDelaySeconds:
+                                      description: |-
+                                        The number of seconds to wait before beginning health checks.
+                                        The number of seconds to wait before beginning health checks.
+                                      type: number
+                                    periodSeconds:
+                                      description: |-
+                                        The number of seconds to wait between health checks.
+                                        The number of seconds to wait between health checks.
+                                      type: number
+                                    port:
+                                      description: |-
+                                        The port to redirect to.
+                                        The port on which the health check will be performed. If not set, the health check will be performed on the component's http_port.
+                                      type: number
+                                    successThreshold:
+                                      description: |-
+                                        The number of successful health checks before considered healthy.
+                                        The number of successful health checks before considered healthy.
+                                      type: number
+                                    timeoutSeconds:
+                                      description: |-
+                                        The number of seconds after which the check times out.
+                                        The number of seconds after which the check times out.
+                                      type: number
+                                  type: object
+                                type: array
                               logDestination:
                                 description: |-
                                   Describes a log forwarding destination.
@@ -6898,6 +7070,49 @@ spec:
                                   type: number
                                 type: array
                                 x-kubernetes-list-type: set
+                              livenessHealthCheck:
+                                description: A liveness health check to determine
+                                  if the service should be restarted. Failing to respond
+                                  will result in the component being restarted.
+                                items:
+                                  properties:
+                                    failureThreshold:
+                                      description: |-
+                                        The number of failed health checks before considered unhealthy.
+                                        The number of failed health checks before considered unhealthy.
+                                      type: number
+                                    httpPath:
+                                      description: |-
+                                        The route path used for the HTTP health check ping.
+                                        The route path used for the HTTP health check ping.
+                                      type: string
+                                    initialDelaySeconds:
+                                      description: |-
+                                        The number of seconds to wait before beginning health checks.
+                                        The number of seconds to wait before beginning health checks.
+                                      type: number
+                                    periodSeconds:
+                                      description: |-
+                                        The number of seconds to wait between health checks.
+                                        The number of seconds to wait between health checks.
+                                      type: number
+                                    port:
+                                      description: |-
+                                        The port to redirect to.
+                                        The port on which the health check will be performed. If not set, the health check will be performed on the component's http_port.
+                                      type: number
+                                    successThreshold:
+                                      description: |-
+                                        The number of successful health checks before considered healthy.
+                                        The number of successful health checks before considered healthy.
+                                      type: number
+                                    timeoutSeconds:
+                                      description: |-
+                                        The number of seconds after which the check times out.
+                                        The number of seconds after which the check times out.
+                                      type: number
+                                  type: object
+                                type: array
                               logDestination:
                                 description: |-
                                   Describes a log forwarding destination.
@@ -7577,6 +7792,49 @@ spec:
                                   The instance size to use for this component. This determines the plan (basic or professional) and the available CPU and memory. The list of available instance sizes can be found with the API or using the doctl CLI (doctl apps tier instance-size list). Default: basic-xxs
                                   The instance size to use for this component.
                                 type: string
+                              livenessHealthCheck:
+                                description: A liveness health check to determine
+                                  if the service should be restarted. Failing to respond
+                                  will result in the component being restarted.
+                                items:
+                                  properties:
+                                    failureThreshold:
+                                      description: |-
+                                        The number of failed health checks before considered unhealthy.
+                                        The number of failed health checks before considered unhealthy.
+                                      type: number
+                                    httpPath:
+                                      description: |-
+                                        The route path used for the HTTP health check ping.
+                                        The route path used for the HTTP health check ping.
+                                      type: string
+                                    initialDelaySeconds:
+                                      description: |-
+                                        The number of seconds to wait before beginning health checks.
+                                        The number of seconds to wait before beginning health checks.
+                                      type: number
+                                    periodSeconds:
+                                      description: |-
+                                        The number of seconds to wait between health checks.
+                                        The number of seconds to wait between health checks.
+                                      type: number
+                                    port:
+                                      description: |-
+                                        The port to redirect to.
+                                        The port on which the health check will be performed. If not set, the health check will be performed on the component's http_port.
+                                      type: number
+                                    successThreshold:
+                                      description: |-
+                                        The number of successful health checks before considered healthy.
+                                        The number of successful health checks before considered healthy.
+                                      type: number
+                                    timeoutSeconds:
+                                      description: |-
+                                        The number of seconds after which the check times out.
+                                        The number of seconds after which the check times out.
+                                      type: number
+                                  type: object
+                                type: array
                               logDestination:
                                 description: |-
                                   Describes a log forwarding destination.

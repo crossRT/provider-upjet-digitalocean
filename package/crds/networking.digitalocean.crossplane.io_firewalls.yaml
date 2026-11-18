@@ -165,6 +165,11 @@ spec:
                       The inbound_rule block is documented below.
                     items:
                       properties:
+                        action:
+                          description: |-
+                            The action to take for traffic matching this rule.
+                            This may be one of "allow" or "deny". If not specified, defaults to "allow".
+                          type: string
                         portRange:
                           description: |-
                             The ports on which traffic will be allowed
@@ -309,6 +314,11 @@ spec:
                       The outbound_rule block is documented below.
                     items:
                       properties:
+                        action:
+                          description: |-
+                            The action to take for traffic matching this rule.
+                            This may be one of "allow" or "deny". If not specified, defaults to "allow".
+                          type: string
                         destinationAddresses:
                           description: |-
                             An array of strings containing the IPv4
@@ -636,6 +646,11 @@ spec:
                       The inbound_rule block is documented below.
                     items:
                       properties:
+                        action:
+                          description: |-
+                            The action to take for traffic matching this rule.
+                            This may be one of "allow" or "deny". If not specified, defaults to "allow".
+                          type: string
                         portRange:
                           description: |-
                             The ports on which traffic will be allowed
@@ -780,6 +795,11 @@ spec:
                       The outbound_rule block is documented below.
                     items:
                       properties:
+                        action:
+                          description: |-
+                            The action to take for traffic matching this rule.
+                            This may be one of "allow" or "deny". If not specified, defaults to "allow".
+                          type: string
                         destinationAddresses:
                           description: |-
                             An array of strings containing the IPv4
@@ -1121,6 +1141,11 @@ spec:
                       The inbound_rule block is documented below.
                     items:
                       properties:
+                        action:
+                          description: |-
+                            The action to take for traffic matching this rule.
+                            This may be one of "allow" or "deny". If not specified, defaults to "allow".
+                          type: string
                         portRange:
                           description: |-
                             The ports on which traffic will be allowed
@@ -1186,6 +1211,11 @@ spec:
                       The outbound_rule block is documented below.
                     items:
                       properties:
+                        action:
+                          description: |-
+                            The action to take for traffic matching this rule.
+                            This may be one of "allow" or "deny". If not specified, defaults to "allow".
+                          type: string
                         destinationAddresses:
                           description: |-
                             An array of strings containing the IPv4

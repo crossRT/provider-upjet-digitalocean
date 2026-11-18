@@ -119,6 +119,11 @@ spec:
                             Project UUID to create the Droplet Autoscale pool underlying resource(s).
                             Droplet project ID
                           type: string
+                        publicNetworking:
+                          description: |-
+                            A boolean indicating whether to enables public networking for the Droplet or not. By default, this is always enabled on new droplets. But, by explicitly setting it to false, you can create a droplet with public networking entirely disabled.
+                            Enables public networking for the Droplet. By default, this is always enabled on new Droplets, but by explicitly setting it to false, you can create a Droplet with public networking entirely disabled.
+                          type: boolean
                         region:
                           description: |-
                             Region slug of the Droplet Autoscale pool underlying resource(s).
@@ -245,6 +250,11 @@ spec:
                             Project UUID to create the Droplet Autoscale pool underlying resource(s).
                             Droplet project ID
                           type: string
+                        publicNetworking:
+                          description: |-
+                            A boolean indicating whether to enables public networking for the Droplet or not. By default, this is always enabled on new droplets. But, by explicitly setting it to false, you can create a droplet with public networking entirely disabled.
+                            Enables public networking for the Droplet. By default, this is always enabled on new Droplets, but by explicitly setting it to false, you can create a Droplet with public networking entirely disabled.
+                          type: boolean
                         region:
                           description: |-
                             Region slug of the Droplet Autoscale pool underlying resource(s).
@@ -451,6 +461,11 @@ spec:
                             Project UUID to create the Droplet Autoscale pool underlying resource(s).
                             Droplet project ID
                           type: string
+                        publicNetworking:
+                          description: |-
+                            A boolean indicating whether to enables public networking for the Droplet or not. By default, this is always enabled on new droplets. But, by explicitly setting it to false, you can create a droplet with public networking entirely disabled.
+                            Enables public networking for the Droplet. By default, this is always enabled on new Droplets, but by explicitly setting it to false, you can create a Droplet with public networking entirely disabled.
+                          type: boolean
                         region:
                           description: |-
                             Region slug of the Droplet Autoscale pool underlying resource(s).

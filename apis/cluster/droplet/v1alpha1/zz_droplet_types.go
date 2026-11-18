@@ -69,6 +69,15 @@ type DropletInitParameters struct {
 	// set it to true.
 	DropletAgent *bool `json:"dropletAgent,omitempty" tf:"droplet_agent,omitempty"`
 
+	// The partition mode for a GPU Droplet. Omit to
+	// create a full GPU (equivalent to PARTITION_MODE_SPX_NPS1). Valid values are
+	// PARTITION_MODE_SPX_NPS1 and PARTITION_MODE_DPX_NPS2. Only supported on GPU
+	// sizes that advertise the mode in their supported_partition_modes (see the
+	// digitalocean_sizes data source). Changing this forces a new resource to be
+	// created.
+	// The partition mode for a GPU Droplet. Omit to create a full GPU (equivalent to PARTITION_MODE_SPX_NPS1). Only supported on GPU sizes that advertise the mode in their supported_partition_modes.
+	GpuPartitionMode *string `json:"gpuPartitionMode,omitempty" tf:"gpu_partition_mode,omitempty"`
+
 	// A boolean indicating whether the droplet
 	// should be gracefully shut down before it is deleted.
 	GracefulShutdown *bool `json:"gracefulShutdown,omitempty" tf:"graceful_shutdown,omitempty"`
@@ -105,6 +114,12 @@ type DropletInitParameters struct {
 	// Deprecated Boolean controlling if private networking
 	// is enabled. This parameter has been deprecated. Use vpc_uuid instead to specify a VPC network for the Droplet. If no vpc_uuid is provided, the Droplet will be placed in your account's default VPC for the region.
 	PrivateNetworking *bool `json:"privateNetworking,omitempty" tf:"private_networking,omitempty"`
+
+	// A boolean indicating whether to enables public networking for the Droplet or not.
+	// By default, this is always enabled on new droplets.
+	// But, by explicitly setting it to false, you can create a droplet with public networking entirely disabled.
+	// Enables public networking for the Droplet. By default, this is always enabled on new droplets, but by explicitly setting it to false, you can create a droplet with public networking entirely disabled.
+	PublicNetworking *bool `json:"publicNetworking,omitempty" tf:"public_networking,omitempty"`
 
 	// The region where the Droplet will be created.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
@@ -191,6 +206,15 @@ type DropletObservation struct {
 	// set it to true.
 	DropletAgent *bool `json:"dropletAgent,omitempty" tf:"droplet_agent,omitempty"`
 
+	// The partition mode for a GPU Droplet. Omit to
+	// create a full GPU (equivalent to PARTITION_MODE_SPX_NPS1). Valid values are
+	// PARTITION_MODE_SPX_NPS1 and PARTITION_MODE_DPX_NPS2. Only supported on GPU
+	// sizes that advertise the mode in their supported_partition_modes (see the
+	// digitalocean_sizes data source). Changing this forces a new resource to be
+	// created.
+	// The partition mode for a GPU Droplet. Omit to create a full GPU (equivalent to PARTITION_MODE_SPX_NPS1). Only supported on GPU sizes that advertise the mode in their supported_partition_modes.
+	GpuPartitionMode *string `json:"gpuPartitionMode,omitempty" tf:"gpu_partition_mode,omitempty"`
+
 	// A boolean indicating whether the droplet
 	// should be gracefully shut down before it is deleted.
 	GracefulShutdown *bool `json:"gracefulShutdown,omitempty" tf:"graceful_shutdown,omitempty"`
@@ -238,6 +262,12 @@ type DropletObservation struct {
 	// Deprecated Boolean controlling if private networking
 	// is enabled. This parameter has been deprecated. Use vpc_uuid instead to specify a VPC network for the Droplet. If no vpc_uuid is provided, the Droplet will be placed in your account's default VPC for the region.
 	PrivateNetworking *bool `json:"privateNetworking,omitempty" tf:"private_networking,omitempty"`
+
+	// A boolean indicating whether to enables public networking for the Droplet or not.
+	// By default, this is always enabled on new droplets.
+	// But, by explicitly setting it to false, you can create a droplet with public networking entirely disabled.
+	// Enables public networking for the Droplet. By default, this is always enabled on new droplets, but by explicitly setting it to false, you can create a droplet with public networking entirely disabled.
+	PublicNetworking *bool `json:"publicNetworking,omitempty" tf:"public_networking,omitempty"`
 
 	// The region where the Droplet will be created.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
@@ -304,6 +334,16 @@ type DropletParameters struct {
 	// +kubebuilder:validation:Optional
 	DropletAgent *bool `json:"dropletAgent,omitempty" tf:"droplet_agent,omitempty"`
 
+	// The partition mode for a GPU Droplet. Omit to
+	// create a full GPU (equivalent to PARTITION_MODE_SPX_NPS1). Valid values are
+	// PARTITION_MODE_SPX_NPS1 and PARTITION_MODE_DPX_NPS2. Only supported on GPU
+	// sizes that advertise the mode in their supported_partition_modes (see the
+	// digitalocean_sizes data source). Changing this forces a new resource to be
+	// created.
+	// The partition mode for a GPU Droplet. Omit to create a full GPU (equivalent to PARTITION_MODE_SPX_NPS1). Only supported on GPU sizes that advertise the mode in their supported_partition_modes.
+	// +kubebuilder:validation:Optional
+	GpuPartitionMode *string `json:"gpuPartitionMode,omitempty" tf:"gpu_partition_mode,omitempty"`
+
 	// A boolean indicating whether the droplet
 	// should be gracefully shut down before it is deleted.
 	// +kubebuilder:validation:Optional
@@ -347,6 +387,13 @@ type DropletParameters struct {
 	// is enabled. This parameter has been deprecated. Use vpc_uuid instead to specify a VPC network for the Droplet. If no vpc_uuid is provided, the Droplet will be placed in your account's default VPC for the region.
 	// +kubebuilder:validation:Optional
 	PrivateNetworking *bool `json:"privateNetworking,omitempty" tf:"private_networking,omitempty"`
+
+	// A boolean indicating whether to enables public networking for the Droplet or not.
+	// By default, this is always enabled on new droplets.
+	// But, by explicitly setting it to false, you can create a droplet with public networking entirely disabled.
+	// Enables public networking for the Droplet. By default, this is always enabled on new droplets, but by explicitly setting it to false, you can create a droplet with public networking entirely disabled.
+	// +kubebuilder:validation:Optional
+	PublicNetworking *bool `json:"publicNetworking,omitempty" tf:"public_networking,omitempty"`
 
 	// The region where the Droplet will be created.
 	// +kubebuilder:validation:Optional

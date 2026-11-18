@@ -17,6 +17,7 @@ spec:
     dropletTemplate:
     - image: ubuntu-24-04-x64
       ipv6: true
+      publicNetworking: false
       region: nyc3
       size: c-2
       sshKeys:

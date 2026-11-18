@@ -16,7 +16,7 @@ import (
 
 // GetTerraformResourceType returns Terraform resource type for this AgentKnowledgeBaseAttachment
 func (mg *AgentKnowledgeBaseAttachment) GetTerraformResourceType() string {
-	return "digitalocean_gradientai_agent_knowledge_base_attachment"
+	return "digitalocean_agent_platform_agent_knowledge_base_attachment"
 }
 
 // GetConnectionDetailsMapping for this AgentKnowledgeBaseAttachment

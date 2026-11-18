@@ -72,6 +72,27 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  egresses:
+                    description: |-
+                      Embeds the list of public egresses assigned to the VPC NAT Gateway: resolves as list of
+                      public_gateways embedding the reserved ipv4 addresses.
+                      Optional egress configuration. Set public_gateways.ipv4 to assign a BYOIP / reserved IP on create. When omitted, a system-allocated reserved IP is provisioned.
+                    items:
+                      properties:
+                        publicGateways:
+                          description: Set of public gateway IPs
+                          items:
+                            properties:
+                              ipv4:
+                                description: IPv4 address. On create, set this to
+                                  an unassigned BYOIP on the account in the same region.
+                                  When omitted, a system-allocated reserved IP is
+                                  provisioned.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                   icmpTimeoutSeconds:
                     description: |-
                       The egress timeout value for ICMP connections of the VPC NAT Gateway.
@@ -198,6 +219,11 @@ spec:
                             Boolean flag indicating if this should be the default gateway in this VPC
                             Indicates if this is the default VPC NAT Gateway in the VPC
                           type: boolean
+                        subnetUuid:
+                          description: |-
+                            The ID of the ingress subnet in the VPC
+                            ID of the ingress subnet in the VPC
+                          type: string
                         vpcUuid:
                           description: |-
                             The ID of the ingress VPC
@@ -219,6 +245,27 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  egresses:
+                    description: |-
+                      Embeds the list of public egresses assigned to the VPC NAT Gateway: resolves as list of
+                      public_gateways embedding the reserved ipv4 addresses.
+                      Optional egress configuration. Set public_gateways.ipv4 to assign a BYOIP / reserved IP on create. When omitted, a system-allocated reserved IP is provisioned.
+                    items:
+                      properties:
+                        publicGateways:
+                          description: Set of public gateway IPs
+                          items:
+                            properties:
+                              ipv4:
+                                description: IPv4 address. On create, set this to
+                                  an unassigned BYOIP on the account in the same region.
+                                  When omitted, a system-allocated reserved IP is
+                                  provisioned.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                   icmpTimeoutSeconds:
                     description: |-
                       The egress timeout value for ICMP connections of the VPC NAT Gateway.
@@ -345,6 +392,11 @@ spec:
                             Boolean flag indicating if this should be the default gateway in this VPC
                             Indicates if this is the default VPC NAT Gateway in the VPC
                           type: boolean
+                        subnetUuid:
+                          description: |-
+                            The ID of the ingress subnet in the VPC
+                            ID of the ingress subnet in the VPC
+                          type: string
                         vpcUuid:
                           description: |-
                             The ID of the ingress VPC
@@ -474,13 +526,18 @@ spec:
                     description: |-
                       Embeds the list of public egresses assigned to the VPC NAT Gateway: resolves as list of
                       public_gateways embedding the reserved ipv4 addresses.
-                      List of egresses
+                      Optional egress configuration. Set public_gateways.ipv4 to assign a BYOIP / reserved IP on create. When omitted, a system-allocated reserved IP is provisioned.
                     items:
                       properties:
                         publicGateways:
+                          description: Set of public gateway IPs
                           items:
                             properties:
                               ipv4:
+                                description: IPv4 address. On create, set this to
+                                  an unassigned BYOIP on the account in the same region.
+                                  When omitted, a system-allocated reserved IP is
+                                  provisioned.
                                 type: string
                             type: object
                           type: array
@@ -553,6 +610,11 @@ spec:
                           description: |-
                             (Read-only) The private IP of the VPC NAT Gateway
                             Gateway IP of the VPC NAT Gateway
+                          type: string
+                        subnetUuid:
+                          description: |-
+                            The ID of the ingress subnet in the VPC
+                            ID of the ingress subnet in the VPC
                           type: string
                         vpcUuid:
                           description: |-

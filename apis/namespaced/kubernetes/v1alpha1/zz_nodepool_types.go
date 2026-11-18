@@ -31,6 +31,9 @@ type NodePoolInitParameters_2 struct {
 	// +kubebuilder:validation:Optional
 	ClusterIDSelector *v1.NamespacedSelector `json:"clusterIdSelector,omitempty" tf:"-"`
 
+	// The AMD GPU partition mode to use for nodes in this pool. Valid values are AMD_PARTITION_MODE_SPX_NPS1 and AMD_PARTITION_MODE_DPX_NPS2. This can only be set when the pool is created.
+	GpuPartitionMode *string `json:"gpuPartitionMode,omitempty" tf:"gpu_partition_mode,omitempty"`
+
 	// A map of key/value pairs to apply to nodes in the pool. The labels are exposed in the Kubernetes API as labels in the metadata of the corresponding Node resources.
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
@@ -105,6 +108,9 @@ type NodePoolObservation_2 struct {
 	// The ID of the Kubernetes cluster to which the node pool is associated.
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
+	// The AMD GPU partition mode to use for nodes in this pool. Valid values are AMD_PARTITION_MODE_SPX_NPS1 and AMD_PARTITION_MODE_DPX_NPS2. This can only be set when the pool is created.
+	GpuPartitionMode *string `json:"gpuPartitionMode,omitempty" tf:"gpu_partition_mode,omitempty"`
+
 	// A unique ID that can be used to identify and reference the node pool.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
@@ -156,6 +162,10 @@ type NodePoolParameters_2 struct {
 	// Selector for a Cluster in kubernetes to populate clusterId.
 	// +kubebuilder:validation:Optional
 	ClusterIDSelector *v1.NamespacedSelector `json:"clusterIdSelector,omitempty" tf:"-"`
+
+	// The AMD GPU partition mode to use for nodes in this pool. Valid values are AMD_PARTITION_MODE_SPX_NPS1 and AMD_PARTITION_MODE_DPX_NPS2. This can only be set when the pool is created.
+	// +kubebuilder:validation:Optional
+	GpuPartitionMode *string `json:"gpuPartitionMode,omitempty" tf:"gpu_partition_mode,omitempty"`
 
 	// A map of key/value pairs to apply to nodes in the pool. The labels are exposed in the Kubernetes API as labels in the metadata of the corresponding Node resources.
 	// +kubebuilder:validation:Optional

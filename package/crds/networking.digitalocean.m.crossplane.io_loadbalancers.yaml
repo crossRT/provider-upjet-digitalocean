@@ -426,6 +426,11 @@ spec:
                     description: Specifies the idle timeout for HTTPS connections
                       on the load balancer in seconds.
                     type: number
+                  ip:
+                    description: |-
+                      The ip of the Load Balancer
+                      Optional BYOIP address to assign on create. Must be an unassigned BYOIP on the account in the same region. When omitted, a system-allocated floating IP is provisioned.
+                    type: string
                   name:
                     description: The Load Balancer name
                     type: string
@@ -566,6 +571,11 @@ spec:
                           type: string
                       type: object
                     type: array
+                  subnetUuid:
+                    description: The ID of the VPC subnet where the load balancer
+                      will be located. Must be a valid subnet in the specified VPC.
+                      Requires that vpc_uuid is also set.
+                    type: string
                   targetLoadBalancerIds:
                     description: |-
                       A list of Load Balancer IDs to be attached behind a Global Load Balancer.
@@ -1050,6 +1060,11 @@ spec:
                     description: Specifies the idle timeout for HTTPS connections
                       on the load balancer in seconds.
                     type: number
+                  ip:
+                    description: |-
+                      The ip of the Load Balancer
+                      Optional BYOIP address to assign on create. Must be an unassigned BYOIP on the account in the same region. When omitted, a system-allocated floating IP is provisioned.
+                    type: string
                   name:
                     description: The Load Balancer name
                     type: string
@@ -1190,6 +1205,11 @@ spec:
                           type: string
                       type: object
                     type: array
+                  subnetUuid:
+                    description: The ID of the VPC subnet where the load balancer
+                      will be located. Must be a valid subnet in the specified VPC.
+                      Requires that vpc_uuid is also set.
+                    type: string
                   targetLoadBalancerIds:
                     description: |-
                       A list of Load Balancer IDs to be attached behind a Global Load Balancer.
@@ -1582,7 +1602,9 @@ spec:
                     description: The ID of the Load Balancer
                     type: string
                   ip:
-                    description: The ip of the Load Balancer
+                    description: |-
+                      The ip of the Load Balancer
+                      Optional BYOIP address to assign on create. Must be an unassigned BYOIP on the account in the same region. When omitted, a system-allocated floating IP is provisioned.
                     type: string
                   ipv6:
                     type: string
@@ -1648,6 +1670,11 @@ spec:
                           type: string
                       type: object
                     type: array
+                  subnetUuid:
+                    description: The ID of the VPC subnet where the load balancer
+                      will be located. Must be a valid subnet in the specified VPC.
+                      Requires that vpc_uuid is also set.
+                    type: string
                   targetLoadBalancerIds:
                     description: |-
                       A list of Load Balancer IDs to be attached behind a Global Load Balancer.

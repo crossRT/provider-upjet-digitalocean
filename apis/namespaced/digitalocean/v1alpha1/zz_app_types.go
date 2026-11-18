@@ -2290,6 +2290,106 @@ type JobParameters struct {
 	Termination []TerminationParameters `json:"termination,omitempty" tf:"termination,omitempty"`
 }
 
+type LivenessHealthCheckInitParameters struct {
+
+	// The number of failed health checks before considered unhealthy.
+	// The number of failed health checks before considered unhealthy.
+	FailureThreshold *float64 `json:"failureThreshold,omitempty" tf:"failure_threshold,omitempty"`
+
+	// The route path used for the HTTP health check ping.
+	// The route path used for the HTTP health check ping.
+	HTTPPath *string `json:"httpPath,omitempty" tf:"http_path,omitempty"`
+
+	// The number of seconds to wait before beginning health checks.
+	// The number of seconds to wait before beginning health checks.
+	InitialDelaySeconds *float64 `json:"initialDelaySeconds,omitempty" tf:"initial_delay_seconds,omitempty"`
+
+	// The number of seconds to wait between health checks.
+	// The number of seconds to wait between health checks.
+	PeriodSeconds *float64 `json:"periodSeconds,omitempty" tf:"period_seconds,omitempty"`
+
+	// The port to redirect to.
+	// The port on which the health check will be performed. If not set, the health check will be performed on the component's http_port.
+	Port *float64 `json:"port,omitempty" tf:"port,omitempty"`
+
+	// The number of successful health checks before considered healthy.
+	// The number of successful health checks before considered healthy.
+	SuccessThreshold *float64 `json:"successThreshold,omitempty" tf:"success_threshold,omitempty"`
+
+	// The number of seconds after which the check times out.
+	// The number of seconds after which the check times out.
+	TimeoutSeconds *float64 `json:"timeoutSeconds,omitempty" tf:"timeout_seconds,omitempty"`
+}
+
+type LivenessHealthCheckObservation struct {
+
+	// The number of failed health checks before considered unhealthy.
+	// The number of failed health checks before considered unhealthy.
+	FailureThreshold *float64 `json:"failureThreshold,omitempty" tf:"failure_threshold,omitempty"`
+
+	// The route path used for the HTTP health check ping.
+	// The route path used for the HTTP health check ping.
+	HTTPPath *string `json:"httpPath,omitempty" tf:"http_path,omitempty"`
+
+	// The number of seconds to wait before beginning health checks.
+	// The number of seconds to wait before beginning health checks.
+	InitialDelaySeconds *float64 `json:"initialDelaySeconds,omitempty" tf:"initial_delay_seconds,omitempty"`
+
+	// The number of seconds to wait between health checks.
+	// The number of seconds to wait between health checks.
+	PeriodSeconds *float64 `json:"periodSeconds,omitempty" tf:"period_seconds,omitempty"`
+
+	// The port to redirect to.
+	// The port on which the health check will be performed. If not set, the health check will be performed on the component's http_port.
+	Port *float64 `json:"port,omitempty" tf:"port,omitempty"`
+
+	// The number of successful health checks before considered healthy.
+	// The number of successful health checks before considered healthy.
+	SuccessThreshold *float64 `json:"successThreshold,omitempty" tf:"success_threshold,omitempty"`
+
+	// The number of seconds after which the check times out.
+	// The number of seconds after which the check times out.
+	TimeoutSeconds *float64 `json:"timeoutSeconds,omitempty" tf:"timeout_seconds,omitempty"`
+}
+
+type LivenessHealthCheckParameters struct {
+
+	// The number of failed health checks before considered unhealthy.
+	// The number of failed health checks before considered unhealthy.
+	// +kubebuilder:validation:Optional
+	FailureThreshold *float64 `json:"failureThreshold,omitempty" tf:"failure_threshold,omitempty"`
+
+	// The route path used for the HTTP health check ping.
+	// The route path used for the HTTP health check ping.
+	// +kubebuilder:validation:Optional
+	HTTPPath *string `json:"httpPath,omitempty" tf:"http_path,omitempty"`
+
+	// The number of seconds to wait before beginning health checks.
+	// The number of seconds to wait before beginning health checks.
+	// +kubebuilder:validation:Optional
+	InitialDelaySeconds *float64 `json:"initialDelaySeconds,omitempty" tf:"initial_delay_seconds,omitempty"`
+
+	// The number of seconds to wait between health checks.
+	// The number of seconds to wait between health checks.
+	// +kubebuilder:validation:Optional
+	PeriodSeconds *float64 `json:"periodSeconds,omitempty" tf:"period_seconds,omitempty"`
+
+	// The port to redirect to.
+	// The port on which the health check will be performed. If not set, the health check will be performed on the component's http_port.
+	// +kubebuilder:validation:Optional
+	Port *float64 `json:"port,omitempty" tf:"port,omitempty"`
+
+	// The number of successful health checks before considered healthy.
+	// The number of successful health checks before considered healthy.
+	// +kubebuilder:validation:Optional
+	SuccessThreshold *float64 `json:"successThreshold,omitempty" tf:"success_threshold,omitempty"`
+
+	// The number of seconds after which the check times out.
+	// The number of seconds after which the check times out.
+	// +kubebuilder:validation:Optional
+	TimeoutSeconds *float64 `json:"timeoutSeconds,omitempty" tf:"timeout_seconds,omitempty"`
+}
+
 type LogDestinationDatadogInitParameters struct {
 
 	// Datadog API key.
@@ -3740,6 +3840,9 @@ type ServiceInitParameters struct {
 	// +listType=set
 	InternalPorts []*float64 `json:"internalPorts,omitempty" tf:"internal_ports,omitempty"`
 
+	// A liveness health check to determine if the service should be restarted. Failing to respond will result in the component being restarted.
+	LivenessHealthCheck []LivenessHealthCheckInitParameters `json:"livenessHealthCheck,omitempty" tf:"liveness_health_check,omitempty"`
+
 	// Describes a log forwarding destination.
 	// Logs
 	LogDestination []ServiceLogDestinationInitParameters `json:"logDestination,omitempty" tf:"log_destination,omitempty"`
@@ -4035,6 +4138,9 @@ type ServiceObservation struct {
 	// +listType=set
 	InternalPorts []*float64 `json:"internalPorts,omitempty" tf:"internal_ports,omitempty"`
 
+	// A liveness health check to determine if the service should be restarted. Failing to respond will result in the component being restarted.
+	LivenessHealthCheck []LivenessHealthCheckObservation `json:"livenessHealthCheck,omitempty" tf:"liveness_health_check,omitempty"`
+
 	// Describes a log forwarding destination.
 	// Logs
 	LogDestination []ServiceLogDestinationObservation `json:"logDestination,omitempty" tf:"log_destination,omitempty"`
@@ -4135,6 +4241,10 @@ type ServiceParameters struct {
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	InternalPorts []*float64 `json:"internalPorts,omitempty" tf:"internal_ports,omitempty"`
+
+	// A liveness health check to determine if the service should be restarted. Failing to respond will result in the component being restarted.
+	// +kubebuilder:validation:Optional
+	LivenessHealthCheck []LivenessHealthCheckParameters `json:"livenessHealthCheck,omitempty" tf:"liveness_health_check,omitempty"`
 
 	// Describes a log forwarding destination.
 	// Logs
@@ -5710,6 +5820,9 @@ type WorkerInitParameters struct {
 	// The instance size to use for this component.
 	InstanceSizeSlug *string `json:"instanceSizeSlug,omitempty" tf:"instance_size_slug,omitempty"`
 
+	// A liveness health check to determine if the service should be restarted. Failing to respond will result in the component being restarted.
+	LivenessHealthCheck []WorkerLivenessHealthCheckInitParameters `json:"livenessHealthCheck,omitempty" tf:"liveness_health_check,omitempty"`
+
 	// Describes a log forwarding destination.
 	// Logs
 	LogDestination []WorkerLogDestinationInitParameters `json:"logDestination,omitempty" tf:"log_destination,omitempty"`
@@ -5728,6 +5841,106 @@ type WorkerInitParameters struct {
 
 	// Contains a component's termination parameters.
 	Termination []WorkerTerminationInitParameters `json:"termination,omitempty" tf:"termination,omitempty"`
+}
+
+type WorkerLivenessHealthCheckInitParameters struct {
+
+	// The number of failed health checks before considered unhealthy.
+	// The number of failed health checks before considered unhealthy.
+	FailureThreshold *float64 `json:"failureThreshold,omitempty" tf:"failure_threshold,omitempty"`
+
+	// The route path used for the HTTP health check ping.
+	// The route path used for the HTTP health check ping.
+	HTTPPath *string `json:"httpPath,omitempty" tf:"http_path,omitempty"`
+
+	// The number of seconds to wait before beginning health checks.
+	// The number of seconds to wait before beginning health checks.
+	InitialDelaySeconds *float64 `json:"initialDelaySeconds,omitempty" tf:"initial_delay_seconds,omitempty"`
+
+	// The number of seconds to wait between health checks.
+	// The number of seconds to wait between health checks.
+	PeriodSeconds *float64 `json:"periodSeconds,omitempty" tf:"period_seconds,omitempty"`
+
+	// The port to redirect to.
+	// The port on which the health check will be performed. If not set, the health check will be performed on the component's http_port.
+	Port *float64 `json:"port,omitempty" tf:"port,omitempty"`
+
+	// The number of successful health checks before considered healthy.
+	// The number of successful health checks before considered healthy.
+	SuccessThreshold *float64 `json:"successThreshold,omitempty" tf:"success_threshold,omitempty"`
+
+	// The number of seconds after which the check times out.
+	// The number of seconds after which the check times out.
+	TimeoutSeconds *float64 `json:"timeoutSeconds,omitempty" tf:"timeout_seconds,omitempty"`
+}
+
+type WorkerLivenessHealthCheckObservation struct {
+
+	// The number of failed health checks before considered unhealthy.
+	// The number of failed health checks before considered unhealthy.
+	FailureThreshold *float64 `json:"failureThreshold,omitempty" tf:"failure_threshold,omitempty"`
+
+	// The route path used for the HTTP health check ping.
+	// The route path used for the HTTP health check ping.
+	HTTPPath *string `json:"httpPath,omitempty" tf:"http_path,omitempty"`
+
+	// The number of seconds to wait before beginning health checks.
+	// The number of seconds to wait before beginning health checks.
+	InitialDelaySeconds *float64 `json:"initialDelaySeconds,omitempty" tf:"initial_delay_seconds,omitempty"`
+
+	// The number of seconds to wait between health checks.
+	// The number of seconds to wait between health checks.
+	PeriodSeconds *float64 `json:"periodSeconds,omitempty" tf:"period_seconds,omitempty"`
+
+	// The port to redirect to.
+	// The port on which the health check will be performed. If not set, the health check will be performed on the component's http_port.
+	Port *float64 `json:"port,omitempty" tf:"port,omitempty"`
+
+	// The number of successful health checks before considered healthy.
+	// The number of successful health checks before considered healthy.
+	SuccessThreshold *float64 `json:"successThreshold,omitempty" tf:"success_threshold,omitempty"`
+
+	// The number of seconds after which the check times out.
+	// The number of seconds after which the check times out.
+	TimeoutSeconds *float64 `json:"timeoutSeconds,omitempty" tf:"timeout_seconds,omitempty"`
+}
+
+type WorkerLivenessHealthCheckParameters struct {
+
+	// The number of failed health checks before considered unhealthy.
+	// The number of failed health checks before considered unhealthy.
+	// +kubebuilder:validation:Optional
+	FailureThreshold *float64 `json:"failureThreshold,omitempty" tf:"failure_threshold,omitempty"`
+
+	// The route path used for the HTTP health check ping.
+	// The route path used for the HTTP health check ping.
+	// +kubebuilder:validation:Optional
+	HTTPPath *string `json:"httpPath,omitempty" tf:"http_path,omitempty"`
+
+	// The number of seconds to wait before beginning health checks.
+	// The number of seconds to wait before beginning health checks.
+	// +kubebuilder:validation:Optional
+	InitialDelaySeconds *float64 `json:"initialDelaySeconds,omitempty" tf:"initial_delay_seconds,omitempty"`
+
+	// The number of seconds to wait between health checks.
+	// The number of seconds to wait between health checks.
+	// +kubebuilder:validation:Optional
+	PeriodSeconds *float64 `json:"periodSeconds,omitempty" tf:"period_seconds,omitempty"`
+
+	// The port to redirect to.
+	// The port on which the health check will be performed. If not set, the health check will be performed on the component's http_port.
+	// +kubebuilder:validation:Optional
+	Port *float64 `json:"port,omitempty" tf:"port,omitempty"`
+
+	// The number of successful health checks before considered healthy.
+	// The number of successful health checks before considered healthy.
+	// +kubebuilder:validation:Optional
+	SuccessThreshold *float64 `json:"successThreshold,omitempty" tf:"success_threshold,omitempty"`
+
+	// The number of seconds after which the check times out.
+	// The number of seconds after which the check times out.
+	// +kubebuilder:validation:Optional
+	TimeoutSeconds *float64 `json:"timeoutSeconds,omitempty" tf:"timeout_seconds,omitempty"`
 }
 
 type WorkerLogDestinationDatadogInitParameters struct {
@@ -6019,6 +6232,9 @@ type WorkerObservation struct {
 	// The instance size to use for this component.
 	InstanceSizeSlug *string `json:"instanceSizeSlug,omitempty" tf:"instance_size_slug,omitempty"`
 
+	// A liveness health check to determine if the service should be restarted. Failing to respond will result in the component being restarted.
+	LivenessHealthCheck []WorkerLivenessHealthCheckObservation `json:"livenessHealthCheck,omitempty" tf:"liveness_health_check,omitempty"`
+
 	// Describes a log forwarding destination.
 	// Logs
 	LogDestination []WorkerLogDestinationObservation `json:"logDestination,omitempty" tf:"log_destination,omitempty"`
@@ -6098,6 +6314,10 @@ type WorkerParameters struct {
 	// The instance size to use for this component.
 	// +kubebuilder:validation:Optional
 	InstanceSizeSlug *string `json:"instanceSizeSlug,omitempty" tf:"instance_size_slug,omitempty"`
+
+	// A liveness health check to determine if the service should be restarted. Failing to respond will result in the component being restarted.
+	// +kubebuilder:validation:Optional
+	LivenessHealthCheck []WorkerLivenessHealthCheckParameters `json:"livenessHealthCheck,omitempty" tf:"liveness_health_check,omitempty"`
 
 	// Describes a log forwarding destination.
 	// Logs

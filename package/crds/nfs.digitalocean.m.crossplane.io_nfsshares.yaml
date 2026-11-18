@@ -401,6 +401,7 @@ spec:
                     description: The ID of the VPC where the NFS share will be created.
                     type: string
                   vpcIds:
+                    description: The set of VPC IDs the NFS share is attached to.
                     items:
                       type: string
                     type: array

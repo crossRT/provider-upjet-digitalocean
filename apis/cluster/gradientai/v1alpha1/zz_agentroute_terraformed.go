@@ -16,7 +16,7 @@ import (
 
 // GetTerraformResourceType returns Terraform resource type for this AgentRoute
 func (mg *AgentRoute) GetTerraformResourceType() string {
-	return "digitalocean_gradientai_agent_route"
+	return "digitalocean_agent_platform_agent_route"
 }
 
 // GetConnectionDetailsMapping for this AgentRoute

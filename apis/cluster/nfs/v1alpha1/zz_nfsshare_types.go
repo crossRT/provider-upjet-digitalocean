@@ -79,6 +79,7 @@ type NFSShareObservation struct {
 	// The ID of the VPC where the NFS share will be created.
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
 
+	// The set of VPC IDs the NFS share is attached to.
 	// +listType=set
 	VPCIds []*string `json:"vpcIds,omitempty" tf:"vpc_ids,omitempty"`
 }
