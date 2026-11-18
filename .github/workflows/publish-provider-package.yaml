@@ -12,6 +12,10 @@ on:
         default: "1.25"
         required: false
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   publish-provider-package:
     uses: crossplane-contrib/provider-workflows/.github/workflows/publish-provider-non-family.yml@main
@@ -20,6 +24,9 @@ jobs:
       version: ${{ github.event.inputs.version }}
       go-version: ${{ github.event.inputs.go-version }}
       cleanup-disk: true
+      # Publish to ghcr.io/crossrt instead of ghcr.io/crossplane-contrib.
+      registry_org: crossrt
+      mirror: false
     secrets:
       GHCR_PAT: ${{ secrets.GITHUB_TOKEN }}
       XPKG_MIRROR_TOKEN: ${{ secrets.XPKG_TOKEN }}
